@@ -28,7 +28,7 @@ VALUES
 ('Agua Electrolizada', 'Agua ionizada con electrolitos añadidos, ideal para deportistas.');
 
 
-INSERT INTO Productos (nombre, marca, size, descripcion, precio, stock, descuento, url_imagen) 
+/*INSERT INTO Productos (nombre, marca, size, descripcion, precio, stock, descuento, url_imagen) 
 VALUES 
 ('Agua Mineral Natural Evian', 'Evian', '1L', 'Agua mineral natural de los Alpes franceses, ideal para la hidratación diaria.', 1.99, 100, 10, 'evian_1L.jpg'),
 ('Agua con Gas Perrier', 'Perrier', '750ml', 'Agua mineral con gas natural de la región de Vergèze, Francia, conocida por su frescura.', 2.50, 80, 0, 'perrier_750ml.jpg'),
@@ -40,7 +40,22 @@ VALUES
 ('Agua Purificada Nestlé Pure Life', 'Nestlé Pure Life', '1.5L', 'Agua purificada de alta calidad, sometida a múltiples procesos de filtración.', 1.50, 180, 5, 'nestle_1.5L.jpg'),
 ('Agua con Gas San Pellegrino', 'San Pellegrino', '750ml', 'Agua mineral con gas natural, embotellada en las montañas italianas, famosa por su sabor y burbujas.', 2.89, 90, 0, 'sanpellegrino_750ml.jpg'),
 ('Agua de Coco VitaCoco', 'VitaCoco', '330ml', 'Agua de coco 100% natural, sin conservantes ni azúcares añadidos, perfecta para una hidratación refrescante.', 2.20, 60, 5, 'vitacoco_330ml.jpg');
+*/
 
+INSERT INTO Productos (nombre, marca, size, descripcion, precio, stock, descuento, url_imagen) VALUES
+('BEZOYA', 'BEZOYA', '500ml', 'Agua mineral natural, pura y ligera, perfecta para mantenerte hidratado en cualquier momento.', 0.85, 100, NULL, '../assets/images/bezoya.jpg'),
+('LANJARON', 'LANJARON', '1L', 'Agua mineral de alta montaña, rica en minerales, ideal para un estilo de vida saludable.', 1.50, 100, NULL, '../assets/images/lanjaron.webp'),
+('AGUA FINA', 'AGUA FINA', '1.5L', 'Agua pura y cristalina, con un sabor suave que refresca y revitaliza.', 1.75, 100, NULL, '../assets/images/aguafina.jpg'),
+('AGUA PURA DE MAR', 'AGUA PURA DE MAR', '500ml', 'Agua del océano purificada, rica en minerales esenciales para un equilibrio perfecto.', 2.10, 100, NULL, '../assets/images/aguapuramar.png'),
+('AGUA SANA', 'AGUA SANA', '1.5L', 'Agua mineral saludable, ideal para una hidratación equilibrada y llena de frescura.', 1.95, 100, NULL, '../assets/images/aguasana.jpg'),
+('ARQUILLO AGUA MINI', 'ARQUILLO', '250ml', 'La mejor opción en tamaño mini, perfecta para llevar contigo a todas partes.', 0.70, 100, NULL, '../assets/images/arquilloaguamini.jpg'),
+('BONA FONT MINI', 'BONA FONT', '250ml', 'Agua mineral en formato compacto, ideal para acompañarte en el día a día.', 0.95, 100, NULL, '../assets/images/bonafontmini.webp'),
+('FONT VELLA', 'FONT VELLA', '500ml', 'Agua mineral natural de las fuentes más puras, refrescante y saludable.', 1.25, 100, NULL, '../assets/images/fontvella.jpg'),
+('LA SERRETA', 'LA SERRETA', '1L', 'Agua mineral natural, perfecta para una hidratación diaria equilibrada.', 1.10, 100, NULL, '../assets/images/laserreta.jpg'),
+('MONDARIZ', 'MONDARIZ', '500ml', 'Agua mineral de Galicia, con una pureza excepcional y un sabor fresco y natural.', 1.80, 100, NULL, '../assets/images/mondariz.jpg'),
+('PACK 6 LA SERRETA', 'LA SERRETA', '6x500ml', 'Pack de 6 botellas de agua mineral La Serreta, ideal para toda la familia.', 5.50, 100, NULL, '../assets/images/packlaserreta.webp'),
+('PACK 6 VILAS', 'VILAS', '6x500ml', 'Pack de 6 botellas de agua Vilas, perfecta para mantenerte hidratado durante toda la semana.', 4.75, 100, NULL, '../assets/images/packvilas.jpg'),
+('VITAL', 'VITAL', '500ml', 'Agua mineral pura y vital, ideal para acompañarte en cada momento del día.', 1.20, 100, NULL, '../assets/images/vital.png');
 
 
 INSERT INTO Categoriasproductos (id_producto, id_categoria) 

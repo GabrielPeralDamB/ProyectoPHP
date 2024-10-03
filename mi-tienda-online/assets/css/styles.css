@@ -3,7 +3,8 @@
     --primary-color: hsl(2, 86%, 34%) ;
     --secondary-color: hsl(0, 67%, 17%) ;  
     --background-color:  hsl(0, 31%, 34%) ;
-    --main-title-color: hsl(51, 100%, 50%);
+    --main-title-color: #ffffff;
+    --main-title-color-2: #fee381;
     --accent-color: var(--primary-color);
     --background-color-secondary: hsl(0, 0%, 0%);
     --dark-accent-color: hsl(2, 60%, 34%) ;
@@ -45,6 +46,11 @@
     box-sizing: border-box;
     font-family: var(--text-font, 'Arial', sans-serif);
 }
+body,html{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 body {
     background-color: var(--background-color, #1c1c1c);
@@ -58,15 +64,46 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--shadow-color, #333);
-}
-.main-title{
-    size: 50px;
+    border-bottom: 10px solid var(--primary-color);
 }
 
-header .logo img {
-    width: 100px;
+
+.main-title {
+    font-size: 100px;
+    font-family: 'Arial', sans-serif; /* O cualquier fuente preferida */
+    font-weight: bold;
+    color: var(--main-title-color); /* Color fijo de texto */
+    
+    /* Gradiente para el efecto del brillo en el texto */
+    background: linear-gradient(to right, var(--main-title-color-2), var(--main-title-color-2)); /* Gradiente con el segundo color */
+    background-clip: text; /* Aplica el gradiente solo al texto */
+    
+    /* Crear el efecto de puente curvado */
+    display: inline-block;
+    position: relative;
+    transform: scaleY(1.1) skewX(-20deg); /* Transformación para crear el efecto de arco (puente) */
+    text-transform: uppercase;
+    letter-spacing: 3px; /* Espaciado entre letras */
+    padding: 10px 20px;
+    border-radius: 20px; /* Suavizar los bordes del texto */
+
+    text-shadow: 
+            1px 1px 3px rgba(0, 0, 0, 0.5), /* Reducción en el tamaño de la sombra */
+            -1px -1px 3px rgba(0, 0, 0, 0.5),
+            0 0 5px rgba(255, 215, 0, 1), /* Brillo dorado */
+            0 0 8px rgba(255, 215, 0, 1),
+            0 0 11px rgba(255, 215, 0, 1); /* Brillo más fuerte */
+
 }
+
+/* Aplica el mismo estilo de animación de brillo a la imagen */
+header .logo img {
+    width: 200px;
+    margin: 100px,0,0,0;
+    position: relative; /* Para aplicar la sombra correctamente */
+    display: inline-block;
+}
+
 
 nav ul {
     list-style: none;
@@ -89,48 +126,89 @@ nav ul li a:hover {
     color: var(--primary-color, #e74c3c);
 }
 
+/* Contenedor principal */
 main {
+    flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 50px 0;
 }
 
+/* Tarjeta individual */
 .item {
     background-color: var(--secondary-color, #333);
     border-radius: 10px;
     padding: 20px;
     text-align: center;
     margin: 10px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, max-height 0.3s ease;
     width: 300px;
     height: 550px;
-    border: 2px solid var(--primary-color);
+    max-height: 550px; /* Limitar la altura máxima inicialmente */
+    border: 4px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Oculta el contenido que se salga del contenedor */
+    position: relative;
+    z-index: 0; /* Controla la capa por defecto */
+    transition: transform 0.3s ease;
+    
 }
 
+/* Efecto hover para expandir la tarjeta */
+.item:hover {
+    transform: scale(1.05); /* Escala la tarjeta suavemente */
+    z-index: 5; /* Asegura que la tarjeta esté encima de las demás */
+    transition: transform 0.3s ease; /* Transición más suave en el hover */
+}
+
+/* Imágenes */
 .item img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 250px;
+    object-fit: contain;
+    
 }
 
+/* Títulos (truncar con ...) */
 .item h2 {
-    margin: 20px 0 10px;
+    margin: 10px 0 5px;
     font-size: 1.5em;
+    white-space: nowrap; /* Evita el salto de línea */
+    overflow: hidden; /* Oculta el desbordamiento */
+    text-overflow: ellipsis; /* Añade "..." al desbordar */
 }
 
+/* Precios */
 .price {
     font-size: 1.3em;
     color: var(--main-title-color, #f39c12);
 }
 
+/* Descripciones largas (truncar con ...) */
 .description {
     margin-bottom: 20px;
     font-size: 1em;
     color: #ddd;
+    flex-grow: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 3; /* Muestra solo 3 líneas */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis; /* Añade "..." si es más larga de lo permitido */
 }
 
+/* Mostrar todo el título y descripción en hover */
+.item:hover h2,
+.item:hover .description {
+    white-space: normal; /* Permite saltos de línea */
+    line-clamp: unset; /* Quita la limitación de líneas */
+}
+
+/* Botón de compra */
 .buy-button {
     background-color: var(--primary-color, #e74c3c);
     color: white;
@@ -143,10 +221,6 @@ main {
 
 .buy-button:hover {
     background-color: var(--dark-accent-color, #c0392b);
-}
-
-.item:hover {
-    transform: translateY(-10px);
 }
 
 footer {

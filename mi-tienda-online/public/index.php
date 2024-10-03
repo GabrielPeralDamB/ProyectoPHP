@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAMBORGUINI</title>
     <link rel="stylesheet" href="..\assets\css\styles.css">
+    <script src="../assets/js/scripts.js"></script>
 </head>
 
 <body>
     <header>
         <div class="logo">
-            <img src="../assets/images/logo.png" alt="PANBORGHINI">
+            <img src="../assets/images/logo3.png" alt="PANBORGHINI">
         </div>
-        <h1 class="main-title">PANBORGHINI</h1>
+        <h1 class="main-title">PAMBORGHINI</h1>
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
@@ -23,33 +24,21 @@
             </ul>
         </nav>
     </header>
+    <form id="search-form">
+        <input type="text" id="search-name" placeholder="Buscar por nombre...">
+        <input type="text" id="search-brand" placeholder="Buscar por marca...">
+        <input type="text" id="search-size" placeholder="Buscar por tamaño...">
+        <input type="number" id="min-price" placeholder="Precio mínimo" step="0.01">
+        <input type="number" id="max-price" placeholder="Precio máximo" step="0.01">
+    </form>
+
     <main>
-        <section class="item">
-            <img src="../assets/images/bezoya.jpg">
-            <h2>BEZOYA</h2>
-                <p class="price">1€S</p>
-                <p class="description">One of the fastest supercars in the game with top speed and acceleration.</p>
-                <button class="buy-button">Buy Now</button>
-        </section>
-        <section class="item">
-            <img src="../assets/images/lanjaron.webp">
-            <h2>LANJARON</h2>
-            <p class="price">1,99€</p>
-            <p class="description">A sleek and stylish sports car that handles like a dream.</p>
-            <button class="buy-button">Buy Now</button>
-        </section>
-        <section class="item">
-            <img src="../assets/images/Nestle.jpg">
-            <h2>NESTLE</h2>
-            <p class="price">2,3€</p>
-            <p class="description">The king of speed, this car dominates every straight line in Los Santos.</p>
-            <button class="buy-button">Buy Now</button>
-        </section>
+
 
     </main>
 
     <footer>
-        <p>Legendary Motorsport © 2024. All rights reserved.</p>
+        <p>Pamborghini Spain © 2024. All rights reserved.</p>
     </footer>
 </body>
 
