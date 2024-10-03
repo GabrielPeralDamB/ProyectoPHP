@@ -1,12 +1,13 @@
 :root {
     /*Colors*/
-    --primary-color: hsl(2, 86%, 34%) ;
-    --secondary-color: hsl(0, 67%, 17%) ;  
-    --background-color:  hsl(0, 31%, 34%) ;
-    --main-title-color: #ffffff;
-    --main-title-color-2: #fee381;
+    --primary-color: hsl(2, 86%, 50%);
+    --secondary-color: hsl(0, 67%, 20%); 
+    /*--background-color-secondary:  hsl(0, 31%, 34%) ;*/
+    --background-color-secondary: var(--secondary-color);
+    --main-title-color: var(--text-color);
     --accent-color: var(--primary-color);
-    --background-color-secondary: hsl(0, 0%, 0%);
+    --accent-color-2: hsl(51, 100%, 50%);
+    --background-color: hsl(0, 0%, 15%);
     --dark-accent-color: hsl(2, 60%, 34%) ;
     --text-color: hsl(0, 0%, 100%);
     --subtitle-color: var(--text-color);
@@ -53,13 +54,13 @@ body,html{
 }
 
 body {
-    background-color: var(--background-color, #1c1c1c);
+    background-color: var(--background-color);
     color: var(--text-color, white);
     line-height: 1.6;
 }
 
 header {
-    background-color: var(--background-color-secondary, #111);
+    background-color: var(--background-color-secondary);
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -73,11 +74,6 @@ header {
     font-family: 'Arial', sans-serif; /* O cualquier fuente preferida */
     font-weight: bold;
     color: var(--main-title-color); /* Color fijo de texto */
-    
-    /* Gradiente para el efecto del brillo en el texto */
-    background: linear-gradient(to right, var(--main-title-color-2), var(--main-title-color-2)); /* Gradiente con el segundo color */
-    background-clip: text; /* Aplica el gradiente solo al texto */
-    
     /* Crear el efecto de puente curvado */
     display: inline-block;
     position: relative;
@@ -87,43 +83,44 @@ header {
     padding: 10px 20px;
     border-radius: 20px; /* Suavizar los bordes del texto */
 
-    text-shadow: 
-            1px 1px 3px rgba(0, 0, 0, 0.5), /* Reducción en el tamaño de la sombra */
+    /*text-shadow: 
+            1px 1px 3px rgba(0, 0, 0, 0.5), 
             -1px -1px 3px rgba(0, 0, 0, 0.5),
-            0 0 5px rgba(255, 215, 0, 1), /* Brillo dorado */
+            0 0 5px rgba(255, 215, 0, 1),
             0 0 8px rgba(255, 215, 0, 1),
-            0 0 11px rgba(255, 215, 0, 1); /* Brillo más fuerte */
+            0 0 11px rgba(255, 215, 0, 1);  */
 
 }
 
 /* Aplica el mismo estilo de animación de brillo a la imagen */
 header .logo img {
     width: 200px;
-    margin: 100px,0,0,0;
+    margin-left: 50px;
+    margin-right: 30px;
     position: relative; /* Para aplicar la sombra correctamente */
     display: inline-block;
+}
+
+#carrito{
+    width: 90px;
+}
+#user{
+    width: 80px;
+}
+#lupa{
+    width: 90px;
 }
 
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 40px;
+    align-items: center;
 }
 
 nav ul li {
     display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: var(--text-color, white);
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: var(--primary-color, #e74c3c);
 }
 
 /* Contenedor principal */
@@ -143,11 +140,11 @@ main {
     padding: 20px;
     text-align: center;
     margin: 10px;
-    transition: transform 0.3s ease, max-height 0.3s ease;
+    /*transition: transform 0.3s ease, max-height 0.3s ease;*/
     width: 300px;
     height: 550px;
     max-height: 550px; /* Limitar la altura máxima inicialmente */
-    border: 4px solid var(--primary-color);
+    border: 2px solid var(--primary-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -185,7 +182,7 @@ main {
 /* Precios */
 .price {
     font-size: 1.3em;
-    color: var(--main-title-color, #f39c12);
+    color: var(--accent-color-2);
 }
 
 /* Descripciones largas (truncar con ...) */
@@ -224,9 +221,145 @@ main {
 }
 
 footer {
-    background-color: var(--background-color-secondary, #111);
+    background-color: var(--background-color-secondary);
     padding: 20px;
     text-align: center;
     border-top: 2px solid var(--shadow-color, #333);
     color: #bbb;
+}
+
+
+#search-form{
+    display: none;
+    margin-left: 30px;
+}
+
+@media (max-width: 1500px) {
+    header .logo img {
+        width: 150px;
+    }
+
+    .main-title{
+        font-size: 80px;
+    }
+    #carrito{
+        width: 50px;
+    }
+    #user{
+        width: 40px;
+    }
+    #lupa{
+        width: 50px;
+    }
+}
+
+@media (max-width: 1133px) {
+    header .logo img {
+        width: 100px;
+    }
+
+    .main-title{
+        font-size: 60px;
+    }
+    #carrito{
+        width: 30px;
+    }
+    #user{
+        width: 20px;
+    }
+    #lupa{
+        width: 30px;
+    }
+}
+
+
+@media (max-width: 878px) {
+    header .logo img {
+        width: 80px;
+
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+
+    .main-title{
+        font-size: 50px;
+    }
+    #carrito{
+        width: 30px;
+    }
+    #user{
+        width: 20px;
+    }
+    #lupa{
+        width: 30px;
+    }
+
+    nav ul {
+
+        gap: 20px;
+
+    }
+}
+
+@media (max-width: 684px) {
+    header .logo img {
+        width: 60px;
+
+        margin-left: 5px;
+        margin-right: 2px;
+    }
+
+    .main-title{
+        font-size: 40px;
+    }
+    #carrito{
+        width: 20px;
+    }
+    #user{
+        width: 20px;
+    }
+    #lupa{
+        width: 20px;
+    }
+
+    nav ul {
+
+
+        gap: 20px;
+
+    }
+}
+
+@media (max-width: 565px) {
+
+    header{
+        justify-content: center;
+    }
+
+    header .logo img {
+        width: 100px;
+
+        margin-left: 5px;
+        margin-right: 2px;
+    }
+
+    .main-title{
+        font-size: 40px;
+        display: none;
+    }
+    #carrito{
+        width: 50px;
+    }
+    #user{
+        width: 40px;
+        margin-left: 10px;
+    }
+    #lupa{
+        width: 50px;
+    }
+
+    nav ul {
+        gap: 5px;
+        
+    }
 }

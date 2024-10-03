@@ -1,3 +1,5 @@
+console.log("Ancho de la ventana: " + window.innerWidth);
+console.log("Alto de la ventana: " + window.innerHeight);
 document.addEventListener("DOMContentLoaded", () => {
     // Array con los datos de los productos
     const products = [
@@ -170,18 +172,25 @@ document.addEventListener("DOMContentLoaded", () => {
           const size = document.createElement("p");
           size.classList.add("size");
           size.textContent = `Tamaño: ${product.size}`;
+          
+
+          const stock = document.createElement("p");
+          stock.classList.add("stock");
+          stock.textContent = `Disponibles: ${product.stock}`;
 
           // Crear el botón
           const button = document.createElement("button");
           button.classList.add("buy-button");
-          button.textContent = "Buy Now";
+          button.textContent = "Comprar";
 
           // Añadir los elementos a la sección
+         section.appendChild(size);
           section.appendChild(img);
           section.appendChild(title);
           section.appendChild(price);
           section.appendChild(description);
-          section.appendChild(size);
+          section.appendChild(stock);
+          
           section.appendChild(button);
 
           // Añadir la sección al main
@@ -226,4 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("search-size").addEventListener("input", filterProducts);
     document.getElementById("min-price").addEventListener("input", filterProducts);
     document.getElementById("max-price").addEventListener("input", filterProducts);
+
 });
+
+

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAMBORGUINI</title>
+    <title>PAMBORGHINI</title>
     <link rel="stylesheet" href="..\assets\css\styles.css">
     <script src="../assets/js/scripts.js"></script>
 </head>
@@ -17,10 +17,9 @@
         <h1 class="main-title">PAMBORGHINI</h1>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Cars</a></li>
-                <li><a href="#">Dealership</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><img id="lupa" src="../assets/images/lupa.png" alt="Lupa"></li>
+                <li><img id="carrito" src="../assets/images/carrito.png" alt="Carrito"></li>
+                <li><img id="user" src="../assets/images/user.png" alt="User"></li>
             </ul>
         </nav>
     </header>
@@ -40,6 +39,8 @@
     <footer>
         <p>Pamborghini Spain © 2024. All rights reserved.</p>
     </footer>
+
+    <script src="../assets/js/scriptlupa.js"></script>
 </body>
 
 </html>
