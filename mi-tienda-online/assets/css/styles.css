@@ -1,0 +1,158 @@
+:root {
+    /*Colors*/
+    --primary-color: hsl(2, 86%, 34%) ;
+    --secondary-color: hsl(0, 67%, 17%) ;  
+    --background-color:  hsl(0, 31%, 34%) ;
+    --main-title-color: hsl(51, 100%, 50%);
+    --accent-color: var(--primary-color);
+    --background-color-secondary: hsl(0, 0%, 0%);
+    --dark-accent-color: hsl(2, 60%, 34%) ;
+    --text-color: hsl(0, 0%, 100%);
+    --subtitle-color: var(--text-color);
+    --shadow-color: hsla(0, 0%, 0%, 0.1);
+    --copyright-color: var(--main-title-color);
+    /*Fonts*/
+    --text-font: "RobotoFlex", sans-serif;
+    --title-font: "DM Serif Display Italic", serif;
+    --nav-font: "RobotoFlexNav", sans-serif;
+}
+
+/* Google Fonts */
+@font-face {
+    font-family: 'DM Serif Display Italic';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/dmserifdisplay/v15/-nFhOHM81r4j6k0gjAW3mujVU2B2G_VB0PD2.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: "RobotoFlex";
+    src: url("Fonts/DM_Serif_Display,Roboto_Condensed,Roboto_Flex/Roboto_Flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.woff2") format("woff2"),
+        url("Fonts/DM_Serif_Display,Roboto_Condensed,Roboto_Flex/Roboto_Flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "RobotoFlexNav";
+    src: url("Fonts/DM_Serif_Display,Roboto_Condensed,Roboto_Flex/Roboto_Flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.woff2") format("woff2"),
+        url("Fonts/DM_Serif_Display,Roboto_Condensed,Roboto_Flex/Roboto_Flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf") format("truetype");
+    font-weight: 600;
+}
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--text-font, 'Arial', sans-serif);
+}
+
+body {
+    background-color: var(--background-color, #1c1c1c);
+    color: var(--text-color, white);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--background-color-secondary, #111);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--shadow-color, #333);
+}
+.main-title{
+    size: 50px;
+}
+
+header .logo img {
+    width: 100px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color, white);
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--primary-color, #e74c3c);
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.item {
+    background-color: var(--secondary-color, #333);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+    transition: transform 0.3s ease;
+    width: 300px;
+    height: 550px;
+    border: 2px solid var(--primary-color);
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.item h2 {
+    margin: 20px 0 10px;
+    font-size: 1.5em;
+}
+
+.price {
+    font-size: 1.3em;
+    color: var(--main-title-color, #f39c12);
+}
+
+.description {
+    margin-bottom: 20px;
+    font-size: 1em;
+    color: #ddd;
+}
+
+.buy-button {
+    background-color: var(--primary-color, #e74c3c);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: var(--dark-accent-color, #c0392b);
+}
+
+.item:hover {
+    transform: translateY(-10px);
+}
+
+footer {
+    background-color: var(--background-color-secondary, #111);
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid var(--shadow-color, #333);
+    color: #bbb;
+}
