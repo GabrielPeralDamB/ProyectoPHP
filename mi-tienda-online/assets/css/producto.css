@@ -9,7 +9,13 @@
     --shadow-color: rgba(0, 0, 0, 0.2); /* Sombra para los elementos */
     --accent-color-2: hsl(51, 100%, 50%); /* Color para el precio */
 }
-
+main{
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    align-items: center;
+    padding: 40px;
+}
 /* Estilo global del cuerpo */
 body, html {
     height: 100%;
@@ -22,6 +28,57 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.valoraciones-container{
+    background-color: var(--secondary-color);
+    margin-right: 50px;
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    margin-left: 20px;
+}
+
+.valoraciones {
+    max-height: 300px; /* Limita la altura del contenedor de valoraciones */
+    overflow-y: auto;  /* Habilita la barra de desplazamiento vertical */
+}
+
+.valoracion {
+    background-color: var(--primary-color);
+    padding: 10px;
+    margin-bottom: 10px; /* Espacio entre cada valoración */
+    border-radius: 5px;
+    color: var(--text-color);
+    max-width: 30vw; /* Máxima anchura para la valoración */
+    word-wrap: break-word; /* Forzar el ajuste de texto si es necesario */
+    white-space: normal; /* Asegura que el texto se ajuste a la siguiente línea */
+}
+
+
+/* Opcional: Para hacer que la barra de desplazamiento sea más atractiva */
+.valoraciones::-webkit-scrollbar {
+    width: 8px;
+}
+
+.valoraciones::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color); /* Color de la barra de desplazamiento */
+    border-radius: 5px;
+}
+
+.valoraciones::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(2, 86%, 40%); /* Cambia el color al pasar el cursor */
+}
+
+.agregar-valoracion{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.agregar-valoracion form{
+    display: flex;
+    flex-direction: column;
 }
 
 #logo{
@@ -104,3 +161,5 @@ footer {
     margin-top: 50px; 
     color: #888; 
 }
+
+

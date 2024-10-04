@@ -10,9 +10,8 @@ try {
     // Mostrar el número total de productos
     /*echo "Total: " . $productos->rowCount() . "<br>";*/
 
-    // Recorrer los productos y renderizar el HTML de cada uno
     foreach ($productos as $producto) {
-        echo '<section class="item">';
+        echo '<section class="item" onclick="mostrarDetalles(' . $producto["id"] . ')">';
         
         // Tamaño
         echo '<p class="size">Tamaño: ' . htmlspecialchars($producto["size"]) . '</p>';
@@ -32,11 +31,12 @@ try {
         // Stock
         echo '<p class="stock">Disponibles: ' . htmlspecialchars($producto["stock"]) . '</p>';
         
-        // Botón de comprar
-        echo '<button class="buy-button">Comprar</button>';
+        // Botón de comprar (con event.stopPropagation())
+        echo '<button class="buy-button" onclick="event.stopPropagation(); comprarProducto(' . $producto["id"] . ')">Comprar</button>';
         
         echo '</section>';
     }
+    
 } catch (Exception $ex) {
     echo "Error: " . $ex->getMessage();
 }
