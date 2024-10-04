@@ -1,6 +1,6 @@
 // Obtener el botón de lupa y el formulario de búsqueda
 const lupa = document.getElementById("lupa");
-const searchForm = document.getElementById("search-form");
+const searchForm = document.getElementById("form-filter");
 searchForm.style.display = "none";
 // Agregar el evento de clic a la lupa
 lupa.addEventListener("click", function () {

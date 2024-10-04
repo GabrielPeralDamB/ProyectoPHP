@@ -1,7 +1,7 @@
 console.log("Ancho de la ventana: " + window.innerWidth);
 console.log("Alto de la ventana: " + window.innerHeight);
 document.addEventListener("DOMContentLoaded", () => {
-    // Array con los datos de los productos
+   /*
     const products = [
         {
           nombre: "BEZOYA",
@@ -199,9 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Inicializar la página con todos los productos
-    renderProducts(products);
+    renderProducts(products);*/
 
-    // Función para filtrar productos (puedes añadir este código si deseas buscar por nombre, marca, etc.)
+   /* // Función para filtrar productos (puedes añadir este código si deseas buscar por nombre, marca, etc.)
     function filterProducts() {
       const nameInput = document.getElementById("search-name").value.toLowerCase();
       const brandInput = document.getElementById("search-brand").value.toLowerCase();
@@ -230,11 +230,11 @@ document.addEventListener("DOMContentLoaded", () => {
     /*document.getElementById("search-button").addEventListener("click", filterProducts);*/
 
     // Opcional: también podemos vincular la búsqueda a los inputs para que filtre en tiempo real
-    document.getElementById("search-name").addEventListener("input", filterProducts);
+    /*document.getElementById("search-name").addEventListener("input", filterProducts);
     document.getElementById("search-brand").addEventListener("input", filterProducts);
     document.getElementById("search-size").addEventListener("input", filterProducts);
     document.getElementById("min-price").addEventListener("input", filterProducts);
-    document.getElementById("max-price").addEventListener("input", filterProducts);
+    document.getElementById("max-price").addEventListener("input", filterProducts);*/
 
 });
 
