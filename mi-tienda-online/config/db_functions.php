@@ -128,6 +128,47 @@ function getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroM
     }
 }
 
+function comprobarDatos($username, $password) {
+    try {
+        include("database.php");
+        // Construimos la consulta para buscar por cualquiera de los campos
+        $sql = "SELECT id, nombre, password, email, tipo_usuario, dni, telefono FROM Usuarios 
+                WHERE id = :username 
+                OR telefono = :username 
+                OR email = :username 
+                OR dni = :username";
+
+        // Preparar la consulta en lugar de concatenar directamente para evitar SQL Injection
+        $stmt = $bd->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+
+        echo "Total: " . $stmt->rowCount() . "<br>";
+
+        $salida = false;
+        foreach ($stmt as $usuario) {
+            echo $usuario['nombre'] . "\t";
+            echo $usuario['email'] . "\t <br>";
+
+            
+            if ($password== $usuario["password"]) {
+                
+                $_SESSION["dni"] = $usuario["dni"];
+                $_SESSION["email"] = $usuario["email"];
+                $_SESSION["tipo_usuario"] = $usuario["tipo_usuario"];
+                $salida = true;
+
+                // Imprime las variables de sesión para verificar su creación
+                /*var_dump($_SESSION);*/
+            }
+        }
+        
+        return $salida;
+
+    } catch (Exception $ex) {
+        echo "Error: " . $ex->getMessage();
+    }
+}
 
 
 ?>

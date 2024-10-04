@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+if (!isset($_SESSION["dni"])) {
+    header("Location: login.php");
+} 
 // Comprobar si la petición es POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter = false;
