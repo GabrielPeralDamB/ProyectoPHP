@@ -4,6 +4,13 @@ session_start();
 if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
 } 
+
+if (isset($_GET['action']) && $_GET['action'] === 'addCarrito' && isset($_GET['idProducto'])) {
+    include('../config/db_functions.php');
+    $idProducto = intval($_GET['idProducto']); // Asegúrate de que sea un número
+    addCarrito($idProducto);
+    exit; 
+}
 // Comprobar si la petición es POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter = false;
@@ -57,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script src="../assets/js/imagenUser.js"></script>
     <script src="../assets/js/imagencarrito.js"></script>
+    <script src="../assets/js/addCarrito.js"></script>
     <script src="../assets/js/mostrardetallesproducto.js"></script>
     
 </head>

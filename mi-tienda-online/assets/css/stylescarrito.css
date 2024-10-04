@@ -6,6 +6,44 @@
     --text-color: hsl(0, 0%, 100%);
     --font-family: 'Roboto', sans-serif;
 }
+#eliminar {
+    display: flex;
+    justify-content:end;
+    align-items: end;
+}
+#editar {
+    display: flex;
+    align-items: center; /* Mantiene todo alineado en el centro verticalmente */
+    gap: 10px; /* Espacio entre el input y el botón */
+    justify-content: start; /* Asegura que todo se quede alineado a la izquierda */
+}
+
+#editar input[type="number"] {
+    width: 60px; /* Ajusta el ancho del campo de cantidad */
+    padding: 5px; /* Reduce el padding para hacer el campo compacto */
+    font-size: 14px; /* Tamaño de texto adecuado */
+    border: 1px solid var(--primary-color); /* Borde acorde al color primario */
+    border-radius: 4px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto dentro del campo de número */
+    color: var(--text-color); /* Color del texto acorde al esquema */
+    background-color: var(--background-color); /* Fondo acorde al esquema */
+}
+
+#editar .edit-button {
+    padding: 5px 10px; /* Tamaño compacto del botón */
+    font-size: 14px; /* Tamaño del texto */
+    background-color: var(--accent-color); /* Color del botón */
+    color: var(--text-color); /* Color del texto en el botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+}
+
+#editar .edit-button:hover {
+    background-color: hsl(2, 60%, 40%); /* Color más oscuro al pasar el cursor */
+}
+
 
 * {
     margin: 0;
@@ -43,6 +81,27 @@ h2{
     font-size: 30px;
 }
 
+/* Estilo para el botón de volver */
+.btn-volver {
+    position: fixed;
+    top: 20px; /* Ajusta la posición vertical */
+    left: 20px; /* Ajusta la posición horizontal */
+    background-color: var(--primary-color); /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 12px 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    text-decoration: none; /* Sin subrayado */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    transition: background-color 0.3s, transform 0.3s; /* Transición suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil para efecto de profundidad */
+}
+
+.btn-volver:hover {
+    background-color: var(--secondary-color); /* Color de fondo al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
+}
 .cart-container {
     display: flex;
     justify-content: space-around;
@@ -76,6 +135,13 @@ h2{
     max-width: 400px; /* Establecer un máximo para que no sea demasiado grande */
     height: auto; /* Mantener la relación de aspecto */
 }
+.cart-summary form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
 
 .cart-summary h2 {
     color:var(--primary-color);

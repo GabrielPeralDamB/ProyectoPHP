@@ -1,68 +1,43 @@
 <?php
-// Conexión a la base de datos
-$host = 'localhost';
-$dbname = 'tienda';
-$user = 'root'; // Cambia esto si tienes otra configuración
-$pass = ''; // Cambia la contraseña si es necesario
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error al conectar con la base de datos: " . $e->getMessage());
-}
+session_start();
+if (!isset($_SESSION["dni"])) {
+    header("Location: login.php");
+} 
+include '../config/db_functions.php';
 
 // Verificar si el idProducto está presente en la URL
 if (isset($_GET['idProducto'])) {
     $idProducto = htmlspecialchars($_GET['idProducto']);
 
-    // Obtener los detalles del producto
-    $sqlProducto = "SELECT * FROM Productos WHERE id = :idProducto";
-    $stmtProducto = $pdo->prepare($sqlProducto);
-    $stmtProducto->bindParam(':idProducto', $idProducto, PDO::PARAM_INT);
-    $stmtProducto->execute();
-    $producto = $stmtProducto->fetch(PDO::FETCH_ASSOC);
+    // Obtener los detalles del producto y las valoraciones
+    $detalles = getDetallesProducto($idProducto);
 
-    // Verificar si se encontró el producto
-    if ($producto) {
-        // Obtener las valoraciones del producto
-        $sqlValoraciones = "SELECT v.*, u.nombre AS nombre_usuario FROM Valoraciones v 
-                            JOIN Usuarios u ON v.id_usuario = u.id
-                            WHERE v.id_producto = :idProducto";
-        $stmtValoraciones = $pdo->prepare($sqlValoraciones);
-        $stmtValoraciones->bindParam(':idProducto', $idProducto, PDO::PARAM_INT);
-        $stmtValoraciones->execute();
-        $valoraciones = $stmtValoraciones->fetchAll(PDO::FETCH_ASSOC);
+    if ($detalles) {
+        $producto = $detalles['producto'];
+        $valoraciones = $detalles['valoraciones'];
+        $promedioValoracion = $detalles['promedioValoracion'];
 
         // Procesar la nueva valoración si se ha enviado el formulario
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['valoracion']) && isset($_POST['descripcion']) && isset($_POST['id_usuario'])) {
+            
+            if (isset($_POST['valoracion']) && isset($_POST['descripcion']) && isset($_SESSION['id'])) {
                 $valoracion = htmlspecialchars($_POST['valoracion']);
                 $descripcion = htmlspecialchars($_POST['descripcion']);
-                $id_usuario = htmlspecialchars($_POST['id_usuario']);
+                $id_usuario = htmlspecialchars($_SESSION['id']);
 
                 // Insertar la nueva valoración en la base de datos
-                $sqlInsertValoracion = "INSERT INTO Valoraciones (id_producto, id_usuario, descripcion, num_valoracion) 
-                                        VALUES (:idProducto, :idUsuario, :descripcion, :valoracion)";
-                $stmtInsert = $pdo->prepare($sqlInsertValoracion);
-                $stmtInsert->bindParam(':idProducto', $idProducto, PDO::PARAM_INT);
-                $stmtInsert->bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
-                $stmtInsert->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
-                $stmtInsert->bindParam(':valoracion', $valoracion, PDO::PARAM_INT);
-                $stmtInsert->execute();
-
-                // Redirigir después de insertar la valoración para evitar duplicados en la inserción
-                header("Location: detalle_producto.php?idProducto=" . $idProducto);
-                exit();
+                if (insertarValoracion($idProducto, $id_usuario, $valoracion, $descripcion)) {
+                    // Redirigir después de insertar la valoración para evitar duplicados en la inserción
+                    header("Location: detalle_producto.php?idProducto=" . $idProducto);
+                    exit();
+                } else {
+                    echo '<p>Error al insertar la valoración. Inténtalo de nuevo.</p>';
+                }
             }
         }
-    } else {
-        echo "Producto no encontrado.";
-        exit();
     }
 } else {
-    echo "No se recibió el ID del producto.";
-    exit();
+    echo "ID de producto no especificado.";
 }
 ?>
 
@@ -77,7 +52,7 @@ if (isset($_GET['idProducto'])) {
 </head>
 
 <body>
-
+    <a href="index.php" class="btn-volver">Volver</a> 
     <main>
         <div class="producto-detalle">
             <div>
@@ -90,15 +65,21 @@ if (isset($_GET['idProducto'])) {
                 <!-- Mostrar los detalles del producto -->
                 <h1 class="producto-nombre"><?php echo htmlspecialchars($producto['nombre']); ?></h1>
                 <h2 class="producto-marca">Marca: <?php echo htmlspecialchars($producto['marca']); ?></h2>
-                <h3 class="producto-categoria">Categoría: Sin gas, destilada</h3> <!-- Puedes agregar una categoría real aquí -->
-                <div class="producto-valoracion">⭐⭐⭐⭐☆ (4/5)</div> <!-- Puedes generar dinámicamente la valoración promedio -->
+                <h3 class="producto-categoria">
+                    Categoría: <?php echo htmlspecialchars($producto['categorias']); ?>
+                </h3> <!-- Ahora muestra las categorías -->
+                <div class="producto-valoracion">
+                    <?php
+                    $estrellas = str_repeat('⭐', floor($promedioValoracion)) . str_repeat('☆', 5 - floor($promedioValoracion)); // Crea la representación de estrellas
+                    echo $estrellas . " (" . $promedioValoracion . "/5)";
+                    ?>
+                </div>
                 <h4 class="producto-tamano">Tamaño: <?php echo htmlspecialchars($producto['size']); ?></h4>
                 <p class="producto-descripcion">Descripción del producto: <?php echo htmlspecialchars($producto['descripcion']); ?></p>
                 <p class="producto-precio">Precio: <?php echo htmlspecialchars($producto['precio']); ?> €</p>
                 <button class="buy-button">Comprar Ahora</button>
             </div>
         </div>
-
 
         <div class="valoraciones-container">
             <!-- Mostrar las valoraciones del producto -->
@@ -121,7 +102,6 @@ if (isset($_GET['idProducto'])) {
             <div class="agregar-valoracion">
                 <h3>Agregar una valoración</h3>
                 <form action="" method="POST">
-                    <!-- Suponiendo que el id_usuario viene de una sesión, puedes reemplazarlo por una validación real -->
                     <input type="hidden" name="id_usuario" value="1"> <!-- Cambia esto por el usuario real de la sesión -->
                     <label for="valoracion">Valoración (1-5):</label>
                     <select name="valoracion" id="valoracion" required>
@@ -140,10 +120,6 @@ if (isset($_GET['idProducto'])) {
             </div>
         </div>
     </main>
-
-
-
-
 
     <footer>
         <p>&copy; 2024 Pamborghini. Todos los derechos reservados.</p>

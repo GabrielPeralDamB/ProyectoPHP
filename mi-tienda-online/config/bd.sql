@@ -89,9 +89,10 @@ REFERENCES categoriasproductos(id_producto);*/
 drop table if exists Linea_Pedidos;
 create table Linea_Pedidos(
 id bigint auto_increment primary key,
-id_pedido bigint not null,
+id_pedido bigint,
 cantidad int not null,
 id_producto bigint not null,
+id_usuario bigint not null,
 precio_unitario Decimal(10,2) not null,
 precio_total Decimal(10,2) not null,
 FOREIGN KEY (id_pedido) REFERENCES Pedidos(id),

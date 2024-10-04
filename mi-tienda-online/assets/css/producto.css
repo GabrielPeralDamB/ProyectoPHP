@@ -50,11 +50,31 @@ body, html {
     margin-bottom: 10px; /* Espacio entre cada valoración */
     border-radius: 5px;
     color: var(--text-color);
-    max-width: 30vw; /* Máxima anchura para la valoración */
+    max-width: 30vw;
+    min-width: 20vw; /* Máxima anchura para la valoración */
     word-wrap: break-word; /* Forzar el ajuste de texto si es necesario */
     white-space: normal; /* Asegura que el texto se ajuste a la siguiente línea */
 }
 
+/* Estilo para el botón de volver */
+.btn-volver {
+    position: fixed;
+    top: 20px; /* Ajusta la posición vertical */
+    left: 20px; /* Ajusta la posición horizontal */
+    background-color: var(--primary-color); /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    text-decoration: none; /* Sin subrayado */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.btn-volver:hover {
+    background-color: var(--secondary-color); /* Color de fondo al pasar el ratón */
+}
 
 /* Opcional: Para hacer que la barra de desplazamiento sea más atractiva */
 .valoraciones::-webkit-scrollbar {
