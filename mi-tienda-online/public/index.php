@@ -54,6 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         };
     </script>
+
+    <script src="../assets/js/imagenUser.js"></script>
+    <script src="../assets/js/imagencarrito.js"></script>
+    <script src="../assets/js/mostrardetallesproducto.js"></script>
     
 </head>
 
@@ -66,8 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <nav>
             <ul>
                 <li><img id="lupa" src="../assets/images/lupa.png" alt="Lupa"></li>
-                <li><img id="carrito" src="../assets/images/carrito.png" alt="Carrito"></li>
-                <li><img id="user" src="../assets/images/user.png" alt="User"></li>
+                <li><img id="carrito" src="../assets/images/carrito.png" alt="Carrito" onclick="irCarrito()"></li>
+                <li><img id="user" src="../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()"></li>
             </ul>
         </nav>
     </header>

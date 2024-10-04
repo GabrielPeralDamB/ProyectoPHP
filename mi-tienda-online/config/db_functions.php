@@ -98,7 +98,7 @@ function getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroM
 
         // Recorrer los productos y renderizar el HTML de cada uno
         foreach ($productos as $producto) {
-            echo '<section class="item">';
+            echo '<section class="item" onclick="mostrarDetalles('.$producto["id"].')">';
             
             // Tamaño
             echo '<p class="size">Tamaño: ' . htmlspecialchars($producto["size"]) . '</p>';
@@ -151,7 +151,7 @@ function comprobarDatos($username, $password) {
             echo $usuario['email'] . "\t <br>";
 
             
-            if ($password== $usuario["password"]) {
+            if (password_verify($password, $usuario["password"])) {
                 
                 $_SESSION["dni"] = $usuario["dni"];
                 $_SESSION["email"] = $usuario["email"];
@@ -170,5 +170,39 @@ function comprobarDatos($username, $password) {
     }
 }
 
+
+function postUsuario($nombre, $apellidos, $email, $dni, $direccion, $telefono, $fecha_nacimiento, $password) {
+    include("database.php");
+
+    try {
+        // Hash de la contraseña
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Preparar la consulta SQL para insertar un nuevo usuario
+        $sql = "INSERT INTO Usuarios (nombre, apellidos, email, tipo_usuario, dni, direccion, telefono, fecha_nacimiento, password, cuenta_operativa) 
+                VALUES (:nombre, :apellidos, :email, 'usuario', :dni, :direccion, :telefono, :fecha_nacimiento, :password, false)";
+
+        // Preparar la consulta
+        $stmt = $bd->prepare($sql);
+
+        // Vincular los parámetros
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellidos', $apellidos);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':dni', $dni);
+        $stmt->bindParam(':direccion', $direccion);
+        $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+        $stmt->bindParam(':password', $hashedPassword);
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        return true; // Retorna verdadero si se creó el usuario
+    } catch (Exception $ex) {
+        echo "Error: " . $ex->getMessage();
+        return false; // Retorna falso en caso de error
+    }
+}
 
 ?>

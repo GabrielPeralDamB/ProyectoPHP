@@ -1,3 +1,52 @@
+<?php
+session_start(); 
+
+// Comprobar si la petición es POST
+if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verificar que todos los campos requeridos estén presentes
+    if (
+        isset($_POST["nombre"]) &&
+        isset($_POST["apellidos"]) &&
+        isset($_POST["email"]) &&
+        isset($_POST["dni"]) &&
+        isset($_POST["direccion"]) &&
+        isset($_POST["telefono"]) &&
+        isset($_POST["fecha_nacimiento"]) &&
+        isset($_POST["password"]) &&
+        isset($_POST["confirm_password"])
+    ) {
+        // Asegurarse de que las contraseñas coincidan
+        if ($_POST["password"] === $_POST["confirm_password"]) {
+            include("../config/db_functions.php");
+            
+            // Llamar a la función para registrar el usuario
+            $registroExitoso = postUsuario(
+                $_POST["nombre"],
+                $_POST["apellidos"],
+                $_POST["email"],
+                $_POST["dni"],
+                $_POST["direccion"],
+                $_POST["telefono"],
+                $_POST["fecha_nacimiento"],
+                $_POST["password"]
+            );
+
+            if ($registroExitoso) {
+                // Redirigir a la página de inicio o mostrar un mensaje de éxito
+                header("Location: index.php");
+                exit();
+            } else {
+                $err = true; // Error al registrar
+            }
+        } else {
+            $err = true; // Las contraseñas no coinciden
+        }
+    } else {
+        $err = true; // Campos faltantes
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,9 +56,7 @@
     <title>Registro</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/stylesregistro.css">
-    <style>
-        /* Aquí va el CSS proporcionado */
-    </style>
+
 </head>
 <body>
     <header>
@@ -20,7 +67,7 @@
             <div class="signup-container">
                 <img id="logo" src="../assets/images/logo3.png">
                 
-                <form action="#" method="POST">
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
 
                 <div class="group-div-inputs">
                     <div class="input-group">
@@ -75,10 +122,18 @@
                 </form>
 
                 <div class="signup-footer">
-                    <p>¿Ya tienes cuenta? <a href="#">Inicia Sesión</a></p>
+                    <p>¿Ya tienes cuenta? <a href="login.php">Inicia Sesión</a></p>
                 </div>
+
+                <?php
+                // Mostrar un mensaje de error si hubo algún problema
+                if (isset($err) && $err) {
+                    echo "<label>Error en el registro. Verifica los datos ingresados.</label>";
+                }
+                ?>
             </div>
         </div>
     </main>
 </body>
 </html>
+
