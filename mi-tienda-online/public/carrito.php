@@ -96,17 +96,17 @@ foreach ($lineas_pedido as $item) {
 
                 <form method="POST" action="pagar.php"> <!-- Cambia 'pagar.php' al nombre de tu archivo de pago -->
                     <div>
-                        <label for="telefono">Teléfono:</label>
+                        <label class="labeldatos" for="telefono">Teléfono:</label>
                         <input type="text" id="telefono" name="telefono" required>
 
-                        <label for="email">Email:</label>
+                        <label class="labeldatos" for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div>
-                        <label for="direccion">Dirección:</label>
+                        <label class="labeldatos" for="direccion">Dirección:</label>
                         <input type="text" id="direccion" name="direccion" required>
 
-                        <label for="comentarios">Comentarios:</label>
+                        <label class="labeldatos" for="comentarios">Comentarios:</label>
                         <textarea id="comentarios" name="comentarios"></textarea>
                     </div>
 
