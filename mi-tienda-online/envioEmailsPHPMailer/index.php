@@ -4,12 +4,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
 function enviarEmail($email, $nombreUsuario)
 {
-
-
-
-
     require 'PHPMailer/Exception.php';
     require 'PHPMailer/PHPMailer.php';
     require 'PHPMailer/SMTP.php';
@@ -31,16 +28,7 @@ function enviarEmail($email, $nombreUsuario)
         //Recipients
         $mail->setFrom('cuentaproyectophp@gmail.com', 'Pandaghini');
         $mail->addAddress($email, 'Gabriel');     //Add a recipient
-        /*$mail->addAddress('ellen@example.com');               //Name is optional
-        $mail->addReplyTo('info@example.com', 'Information');
-        $mail->addCC('cc@example.com');
-        $mail->addBCC('bcc@example.com');*/
 
-        //Attachments
-        /*$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-        $mail->addAttachment('/tmp/image.jpg', 'new.jpg');  */  //Optional name
-
-        //Content
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = 'Creacion de usuario correcta';
@@ -50,29 +38,11 @@ function enviarEmail($email, $nombreUsuario)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>¡Bienvenido a Pandaghini! 🐼</h1>
-        </div>
-        <div class="content">
-            <h2>Hola, ' . htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8') . '!</h2>
-            <p>Nos emociona darte la bienvenida a nuestra comunidad. Tu cuenta ha sido creada con éxito y ahora formas parte de <strong>Pandaghini</strong>, donde la creatividad y la innovación se encuentran en cada rincón.</p>
-            <p>Gracias por unirte a esta gran aventura. ¡Estamos muy emocionados de que estés aquí! 🎉</p>
-            <p><a href="http://localhost/PROYECTOPHP/mi-tienda-online/public/login.php" class="btn">Accede a tu cuenta</a></p>
-        </div>
-        <div class="footer">
-            <p>Si tienes alguna duda o necesitas ayuda, no dudes en contactarnos. ¡Estamos aquí para ti!</p>
-            <p>&copy; 2024 Pandaghini. Todos los derechos reservados.</p>
-        </div>
-    </div>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: hsl(0, 0%, 15%);
+            color: hsl(0, 0%, 100%);
             margin: 0;
             padding: 0;
         }
@@ -80,36 +50,43 @@ function enviarEmail($email, $nombreUsuario)
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            background-color: #ffffff;
+            background-color: hsl(0, 67%, 20%);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid hsl(2, 86%, 50%);
         }
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #ffce00;
-            border-radius: 10px 10px 0 0;
         }
         .header h1 {
-            color: #000;
+            color: hsl(0, 0%, 100%);
+            margin: 0;
         }
         .content {
             padding: 20px;
         }
         .content h2 {
-            color: #ff6f00;
+            color: hsl(0, 0%, 100%);
+        }
+        .content p {
+            color: hsl(0, 0%, 100%);
         }
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #f4f4f9;
-            color: #888;
+            background-color: hsl(0, 0%, 15%);
+            color: hsl(0, 0%, 100%);
             border-radius: 0 0 10px 10px;
             font-size: 12px;
         }
+        .footer p{
+            
+            color: hsl(0, 0%, 100%);
+            
+        }
         .btn {
-            background-color: #ff6f00;
+            background-color: hsl(2, 86%, 50%);
             color: white;
             padding: 10px 20px;
             text-decoration: none;
@@ -117,13 +94,32 @@ function enviarEmail($email, $nombreUsuario)
             font-weight: bold;
         }
         .btn:hover {
-            background-color: #e65c00;
+            background-color: hsl(2, 80%, 40%);
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>¡Bienvenido a Panborghini! 🐼</h1>
+            <img src="cid:logo" alt="Logo Pandaghini" style="width: 150px; height: auto;">
+        </div>
+        <div class="content">
+            <h2>Hola, ' . htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8') . '!</h2>
+            <p>Nos emociona darte la bienvenida a nuestra comunidad. Tu cuenta ha sido creada con éxito y ahora formas parte de <strong>Panborghini</strong>, la mayor red de venta de agua online del mundo</p>
+            <p>Gracias por unirte a esta gran aventura. ¡Estamos muy emocionados de que estés aquí! 🎉</p>
+            <p><a href="http://localhost/PROYECTOPHP/mi-tienda-online/public/login.php" class="btn">Accede a tu cuenta</a></p>
+        </div>
+        <div class="footer">
+            <p>Si tienes alguna duda o necesitas ayuda, no dudes en contactarnos. ¡Estamos aquí para ti!</p>
+            <p>&copy; 2024 Panborghini. Todos los derechos reservados.</p>
+        </div>
+    </div>
 </body>
 </html>';
 
-        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        // Añadir la imagen como adjunto
+        $mail->addEmbeddedImage('../assets/images/logo3.png', 'logo'); // Cambia la ruta según sea necesario
 
         $mail->send();
         echo 'Message has been sent';
@@ -156,62 +152,53 @@ function enviarDatosPedido($email, $detallesPedido)
 
         // Recipiente
         $mail->setFrom('cuentaproyectophp@gmail.com', 'Pandaghini');
-        $mail->addAddress($email, $nombreUsuario);
+        $mail->addAddress($email, 'Gabriel');
 
         // Contenido
         $mail->isHTML(true);
         $mail->Subject = 'Detalles de tu pedido en Pandaghini';
-        
-        // Cuerpo del correo
+
         $mail->Body = '
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>¡Gracias por tu pedido en Pandaghini!</h1>
-                </div>
-                <div class="content">
-                    <h2>Hola, ' . htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8') . '!</h2>
-                    <p>Hemos recibido tu pedido. A continuación, te proporcionamos los detalles:</p>
-                    <p>' . nl2br(htmlspecialchars($detallesPedido, ENT_QUOTES, 'UTF-8')) . '</p>
-                    <p><strong>Fecha de entrega estimada:</strong> 2 días</p>
-                    <p>Si tienes alguna duda, no dudes en contactarnos. ¡Gracias por confiar en nosotros!</p>
-                </div>
-                <div class="footer">
-                    <p>&copy; 2024 Pandaghini. Todos los derechos reservados.</p>
-                </div>
-            </div>
-            <style>
-                .container {
-                    font-family: Arial, sans-serif;
-                    max-width: 600px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    background-color: #ffffff;
-                }
-                .header {
-                    background-color: #ffce00;
-                    text-align: center;
-                    padding: 10px 0;
-                }
-                .content {
-                    padding: 20px;
-                    background-color: #f4f4f9;
-                }
-                .footer {
-                    text-align: center;
-                    padding: 10px;
-                    font-size: 12px;
-                    color: #888;
-                }
-            </style>
-        </body>
-        </html>';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: hsl(0, 0%, 15%);">
+    <table width="100%" bgcolor="hsl(0, 0%, 15%)" style="border-collapse: collapse;">
+        <tr>
+            <td align="center">
+                <table width="600" style="margin: 20px auto; background-color: hsl(0, 67%, 20%); border: 2px solid hsl(2, 86%, 50%); border-radius: 10px; overflow: hidden;">
+                    <tr>
+                        <td style="background-color: hsl(0, 67%, 20%); text-align: center; padding: 10px;">
+                            <h1 style="color: hsl(0, 0%, 100%); margin: 0;">¡Gracias por tu pedido en Panborghini! 🐼</h1>
+                            <img src="cid:logo" alt="Logo Pandaghini" style="width: 150px; height: auto;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px; background-color:  hsl(0, 67%, 20%); border: 2px solid hsl(2, 86%, 50%);">
+                            <h2 style="color: hsl(0, 0%, 100%);">Hola, CLIENTE DE PANBORGHINI!</h2>
+                            <p style="color: hsl(0, 0%, 100%);">Hemos recibido tu pedido. A continuación, te proporcionamos los detalles:</p>
+                            <pre style="color: hsl(0, 0%, 100%);">' . htmlspecialchars($detallesPedido, ENT_QUOTES, 'UTF-8') . '</pre>
+                            <p style="color: hsl(0, 0%, 100%);"><strong>Fecha de entrega estimada:</strong> 2 días</p>
+                            <p style="color: hsl(0, 0%, 100%);">Si tienes alguna duda, no dudes en contactarnos. ¡Gracias por confiar en nosotros!</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 10px; background-color: hsl(0, 0%, 15%); font-size: 12px; color: hsl(0, 0%, 100%);">
+                            <p>&copy; 2024 Panborghini. Todos los derechos reservados.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>';
+
+        // Añadir la imagen como adjunto
+        $mail->addEmbeddedImage('../assets/images/logo3.png', 'logo'); // Cambia la ruta según sea necesario
 
         $mail->send();
     } catch (Exception $e) {
