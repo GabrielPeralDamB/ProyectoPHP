@@ -8,6 +8,7 @@ if (!isset($_SESSION["dni"])) {
 }
 
 include("../config/database.php"); // Incluir tu conexión a la base de datos
+include("../config/variables.php");
 
 $id_usuario = $_SESSION['id'];
 $fecha_pedido = date('Y-m-d H:i:s'); // Fecha actual
@@ -17,15 +18,20 @@ $num_telefono_entrega = $_POST['telefono']; // Obtener el teléfono de un formul
 $email_entrega = $_POST['email']; // Obtener el email de un formulario
 $direccion_entrega = $_POST['direccion']; // Obtener la dirección de un formulario
 $comentarios_cliente = $_POST['comentarios']; // Obtener los comentarios de un formulario
-$costo_envio = 5.00; // Suponiendo un costo de envío fijo
+$costo_envio = $costo_envio_permanente; // Suponiendo un costo de envío fijo
 $estado = "Pendiente"; // Estado inicial del pedido
 
 // Comenzar una transacción
 try {
     $bd->beginTransaction();
 
-    // 1. Obtener las líneas de pedido
-    $stmt = $bd->prepare("SELECT lp.id_producto, lp.cantidad, lp.precio_total FROM Linea_Pedidos lp WHERE lp.id_usuario = :id_usuario AND lp.id_pedido IS NULL");
+    // 1. Obtener las líneas de pedido con el nombre del producto
+    $stmt = $bd->prepare("
+SELECT lp.id_producto, lp.cantidad, lp.precio_total, p.nombre 
+FROM Linea_Pedidos lp 
+JOIN Productos p ON lp.id_producto = p.id
+WHERE lp.id_usuario = :id_usuario AND lp.id_pedido IS NULL
+");
     $stmt->bindParam(':id_usuario', $id_usuario);
     $stmt->execute();
     $lineas_pedido = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,6 +44,7 @@ try {
             $productos_totales[$item['id_producto']]['precio_total'] += $item['precio_total'];
         } else {
             $productos_totales[$item['id_producto']] = [
+                'nombre' => $item['nombre'], // Almacenar el nombre del producto
                 'cantidad' => $item['cantidad'],
                 'precio_total' => $item['precio_total']
             ];
@@ -45,34 +52,34 @@ try {
     }
 
     // 3. Verificar el stock de cada producto
-$productos_sin_stock = [];
-foreach ($productos_totales as $id_producto => $data) {
-    // Obtener tanto el nombre como el stock del producto
-    $stmt_stock = $bd->prepare("SELECT nombre, stock FROM Productos WHERE id = :id_producto");
-    $stmt_stock->bindParam(':id_producto', $id_producto);
-    $stmt_stock->execute();
-    $producto = $stmt_stock->fetch(PDO::FETCH_ASSOC);
+    $productos_sin_stock = [];
+    foreach ($productos_totales as $id_producto => $data) {
+        // Obtener tanto el nombre como el stock del producto
+        $stmt_stock = $bd->prepare("SELECT nombre, stock FROM Productos WHERE id = :id_producto");
+        $stmt_stock->bindParam(':id_producto', $id_producto);
+        $stmt_stock->execute();
+        $producto = $stmt_stock->fetch(PDO::FETCH_ASSOC);
 
-    // Comprobar si hay suficiente stock
-    if ($producto['stock'] < $data['cantidad']) {
-        $productos_sin_stock[] = [
-            'nombre' => $producto['nombre'], // Almacenar el nombre del producto
-            'cantidad_solicitada' => $data['cantidad'],
-            'stock_disponible' => $producto['stock']
-        ];
+        // Comprobar si hay suficiente stock
+        if ($producto['stock'] < $data['cantidad']) {
+            $productos_sin_stock[] = [
+                'nombre' => $producto['nombre'], // Almacenar el nombre del producto
+                'cantidad_solicitada' => $data['cantidad'],
+                'stock_disponible' => $producto['stock']
+            ];
+        }
     }
-}
 
-// Si hay productos sin stock, lanzar excepción
-if (!empty($productos_sin_stock)) {
-    $error_msg = "No hay suficiente stock para los siguientes productos:\n";
-    foreach ($productos_sin_stock as $producto) {
-        $error_msg .= "Producto: " . $producto['nombre'] . // Cambia 'data' por 'producto'
-                      " - Cantidad solicitada: " . $producto['cantidad_solicitada'] . 
-                      ", Stock disponible: " . $producto['stock_disponible'] . "\n";
+    // Si hay productos sin stock, lanzar excepción
+    if (!empty($productos_sin_stock)) {
+        $error_msg = "No hay suficiente stock para los siguientes productos:\n";
+        foreach ($productos_sin_stock as $producto) {
+            $error_msg .= "Producto: " . $producto['nombre'] . // Cambia 'data' por 'producto'
+                " - Cantidad solicitada: " . $producto['cantidad_solicitada'] .
+                ", Stock disponible: " . $producto['stock_disponible'] . "\n";
+        }
+        throw new Exception($error_msg);
     }
-    throw new Exception($error_msg);
-}
 
     // 4. Insertar el nuevo pedido
     $sql = "INSERT INTO Pedidos (id_usuario, fecha_pedido, fecha_entrega, precio_total, estado, num_telefono_entrega, email_entrega, direccion_entrega, metodo_pago, comentarios_cliente, costo_envio, prioridad_envio) 
@@ -111,7 +118,7 @@ if (!empty($productos_sin_stock)) {
     // 6. Reducir el stock de los productos
     $sql_update_stock = "UPDATE Productos SET stock = stock - :cantidad WHERE id = :id_producto";
     $stmt = $bd->prepare($sql_update_stock);
-    
+
     foreach ($productos_totales as $id_producto => $data) {
         $stmt->bindParam(':cantidad', $data['cantidad']);
         $stmt->bindParam(':id_producto', $id_producto);
@@ -121,22 +128,27 @@ if (!empty($productos_sin_stock)) {
     // Confirmar la transacción
     $bd->commit();
 
+    // Crear los detalles del pedido en un formato legible para el correo
+    $detallesPedido = "Pedido #{$id_pedido}\n";
+    foreach ($productos_totales as $id_producto => $data) {
+        $detallesPedido .= "Producto ID: $id_producto - Nombre: {$data['nombre']} - Cantidad: {$data['cantidad']} - Precio total: {$data['precio_total']} €\n";
+    }
+    $detallesPedido .= "Costo de envío: $costo_envio €\n";
+    $detallesPedido .= "Total: " . ($totalCost + $costo_envio) . " €";
+    include("../envioEmailsPHPMailer/index.php");
+    // Enviar el correo con los detalles del pedido
+    enviarDatosPedido($email_entrega, $detallesPedido);
+
     // Redireccionar o mostrar un mensaje de éxito
     $_SESSION['message'] = "Pedido realizado con éxito! ID de Pedido: " . $id_pedido;
-    header("Location: carrito.php"); // Redirigir al carrito o a una página de confirmación
+    header("Location: carrito.php");
     exit;
 
 } catch (Exception $e) {
-    // En caso de error, revertir la transacción
+    // Revertir la transacción en caso de error
     $bd->rollBack();
     $_SESSION['message'] = "Error al realizar el pedido: " . nl2br(htmlspecialchars($e->getMessage()));
     header("Location: carrito.php");
     exit;
 }
 ?>
-
-
-
-
-
-

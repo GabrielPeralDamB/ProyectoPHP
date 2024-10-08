@@ -44,8 +44,8 @@ VALUES
 
 INSERT INTO Productos (nombre, marca, size, descripcion, precio, stock, descuento, url_imagen) VALUES
 ('BEZOYA', 'BEZOYA', '500ml', 'Agua mineral natural, pura y ligera, perfecta para mantenerte hidratado en cualquier momento.', 0.85, 100, NULL, 'bezoya.jpg'),
-('LANJARON', 'LANJARON', '1L', 'Agua mineral de alta montaña, rica en minerales, ideal para un estilo de vida saludable.', 1.50, 100, NULL, '../assets/images/lanjaron.webp'),
-('AGUA FINA', 'AGUA FINA', '1.5L', 'Agua pura y cristalina, con un sabor suave que refresca y revitaliza.', 1.75, 100, NULL, '../assets/images/aguafina.jpg'),
+('LANJARON', 'LANJARON', '1L', 'Agua mineral de alta montaña, rica en minerales, ideal para un estilo de vida saludable.', 1.50, 100, NULL, 'lanjaron.webp'),
+('AGUA FINA', 'AGUA FINA', '1.5L', 'Agua pura y cristalina, con un sabor suave que refresca y revitaliza.', 1.75, 100, NULL, 'aguafina.jpg'),
 ('AGUA PURA DE MAR', 'AGUA PURA DE MAR', '500ml', 'Agua del océano purificada, rica en minerales esenciales para un equilibrio perfecto.', 2.10, 100, NULL, 'aguapuramar.png'),
 ('AGUA SANA', 'AGUA SANA', '1.5L', 'Agua mineral saludable, ideal para una hidratación equilibrada y llena de frescura.', 1.95, 100, NULL, 'aguasana.jpg'),
 ('ARQUILLO AGUA MINI', 'ARQUILLO', '250ml', 'La mejor opción en tamaño mini, perfecta para llevar contigo a todas partes.', 0.70, 100, NULL, 'arquilloaguamini.jpg'),

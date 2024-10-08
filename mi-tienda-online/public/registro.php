@@ -33,7 +33,10 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($registroExitoso) {
                 // Redirigir a la página de inicio o mostrar un mensaje de éxito
-                header("Location: index.php");
+
+                include("../envioEmailsPHPMailer/index.php");
+                enviarEmail($_POST["email"],$_POST["nombre"]);
+                //header("Location: index.php");
                 exit();
             } else {
                 $err = true; // Error al registrar

@@ -88,9 +88,9 @@ foreach ($lineas_pedido as $item) {
             <div class="cart-summary">
                 <h2>Resumen</h2>
                 <p>Total de productos: <span id="total-items"><?= $totalItemCount ?></span></p>
-                <p>Descuentos aplicados: €0.00</p>
-                <p>Impuestos: €0.00</p>
-                <p>Precio total: <span id="total-price">€<?= number_format($totalCost, 2) ?></span></p>
+                <p>Precio Total (Sin Envio): <?= number_format($totalCost, 2) ?>€</p>
+                <p>Costo envio: <?php include("../config/variables.php"); echo $costo_envio_permanente?>€</p>
+                <p>Precio total: <span id="total-price">€<?= number_format($totalCost+$costo_envio_permanente, 2) ?></span></p>
 
                 <h3>Datos de Entrega</h3>
 
