@@ -1,11 +1,9 @@
 <?php
 session_start();
-
-// Verificar si el usuario está autenticado
 if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
-    exit;
-}
+} 
+
 
 include("../config/database.php"); // Incluir tu conexión a la base de datos
 include("../config/variables.php");

@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION["dni"])) {
+    header("Location: login.php");
+} 
+
+
 include("../config/database.php"); // Incluye tu conexión a la base de datos
 
 if (!isset($_SESSION["dni"])) {

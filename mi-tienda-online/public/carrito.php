@@ -2,6 +2,16 @@
 
 
 session_start();
+if (!isset($_SESSION["dni"])) {
+    header("Location: login.php");
+} 
+
+if(isset($_SESSION["tipo_usuario"])){
+    if($_SESSION["tipo_usuario"]==="admin"){
+        header("Location: ../admin/index.php");
+        exit;
+    }
+}
 
 if (isset($_SESSION['message'])): ?>
     <div class="alert">
@@ -13,10 +23,6 @@ if (isset($_SESSION['message'])): ?>
 
 include("../config/database.php"); // Incluye tu conexión a la base de datos
 
-if (!isset($_SESSION["dni"])) {
-    header("Location: login.php");
-    exit;
-}
 
 $id_usuario = $_SESSION['id'];
 

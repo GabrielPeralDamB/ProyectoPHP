@@ -3,6 +3,8 @@ session_start();
 if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
 } 
+
+
 include '../config/db_functions.php';
 
 // Verificar si el idProducto está presente en la URL

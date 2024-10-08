@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION["dni"])) {
+    header("Location: login.php");
+} 
+
+
 include("../config/database.php"); // Incluye tu conexión a la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,3 +41,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: carrito.php"); // Redirigir de vuelta al carrito
     exit;
 }
+?>

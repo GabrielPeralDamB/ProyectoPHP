@@ -5,6 +5,13 @@ if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
 } 
 
+if(isset($_SESSION["tipo_usuario"])){
+    if($_SESSION["tipo_usuario"]==="admin"){
+        header("Location: ../admin/index.php");
+        exit;
+    }
+}
+
 if (isset($_GET['action']) && $_GET['action'] === 'addCarrito' && isset($_GET['idProducto'])) {
     include('../config/db_functions.php');
     $idProducto = intval($_GET['idProducto']); // Asegúrate de que sea un número

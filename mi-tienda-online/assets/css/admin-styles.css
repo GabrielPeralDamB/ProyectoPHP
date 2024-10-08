@@ -8,7 +8,7 @@
     --button-background: hsl(2, 60%, 34%);
 }
 
-body,html{
+body, html {
     height: 100%;
     width: 100%;
     display: flex;
@@ -51,25 +51,19 @@ main {
     gap: 40px;
 }
 
-.admin-users,
-.admin-products {
+.admin-users, .admin-products {
     background-color: var(--secondary-color);
     border-radius: 10px;
     padding: 20px;
     width: 45%;
     box-shadow: 0 4px 8px var(--shadow-color);
     max-height: 60vh;
-    /* Limita la altura del contenedor de valoraciones */
     overflow-y: auto;
-    /* Habilita la barra de desplazamiento vertical */
 }
 
-.admin-products ul {
-
+.admin-products ul, .admin-users ul {
     max-height: 40vh;
-    /* Limita la altura del contenedor de valoraciones */
     overflow-y: auto;
-    /* Habilita la barra de desplazamiento vertical */
 }
 
 h2 {
@@ -91,14 +85,38 @@ li {
     align-items: center;
 }
 
-li span {
-    margin-right: 20px;
+.search-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.make-admin-button,
-.info-button,
-.create-product-button,
-.create-category-button {
+.search-bar input {
+    padding: 10px;
+    width: 80%;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-button {
+    background-color: var(--button-background);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-icon {
+    width: 20px;
+}
+
+.info-icon {
+    width: 30px;
+}
+
+.create-product-button, .create-category-button, .info-button, .search-button {
     background-color: var(--button-background);
     color: var(--text-color);
     border: none;
@@ -109,10 +127,7 @@ li span {
     transition: background-color 0.3s ease;
 }
 
-.make-admin-button:hover,
-.info-button:hover,
-.create-product-button:hover,
-.create-category-button:hover {
+.create-product-button:hover, .create-category-button:hover, .info-button:hover, .search-button:hover {
     background-color: var(--primary-color);
 }
 
@@ -121,7 +136,7 @@ li span {
     justify-content: space-between;
 }
 
-.product-header {
+.product-header, .search-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -141,3 +156,31 @@ footer {
     color: var(--text-color);
     border-top: 2px solid var(--shadow-color);
 }
+
+.admin-users h2 {
+    display: inline-block;
+    margin: 0;
+}
+
+.admin-users .search-bar form{
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-users {
+    position: relative;
+}
+
+.admin-users .header-users {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar form{
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+}
+
