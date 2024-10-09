@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+if (!isset($_SESSION["dni"])) {
+    header("Location: ../public/login.php");
+} 
 include '../config/admin_db_functions.php';
 
 // Verificar si se ha realizado una búsqueda de usuarios
@@ -28,19 +33,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de administración - PAMBORGHINI</title>
     <link rel="stylesheet" href="../assets/css/admin-styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Cargar jQuery -->
+    <script src="../assets/js/mostrardetallesproducto-admin.js"></script>
+    <script src="../assets/js/imagenUser.js"></script>
 </head>
+
 <body>
     <header>
         <div class="logo">
             <img src="../assets/images/logo3.png" alt="PAMBORGHINI">
         </div>
         <h1 class="main-title">Panel de administración - PAMBORGHINI</h1>
+        <img id="user" src="../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()" width="100px">
+
     </header>
 
     <main>
@@ -102,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                         <?php foreach ($products as $product): ?>
                             <li>
                                 <span><?= htmlspecialchars($product['nombre'] . " | " . $product['marca'] . " | " . $product['precio'] . " € | Stock: " . $product['stock']) ?></span>
-                                <button class="info-button">
+                                <button class="info-button" onclick="mostrarDetalles( <?php echo $product['id'] ?> )">
                                     <img src="../assets/images/info.png" alt="Información" class="info-icon">
                                 </button>
                             </li>
@@ -113,9 +124,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                 </ul>
 
                 <div class="product-footer">
-                    <button class="create-product-button">Crear producto</button>
+                    <form action="crear_productos.php" method="get">
+                        <button type="submit" class="create-product-button">Crear producto</button>
+                    </form>
                     <button class="create-category-button">Crear categoría</button>
                 </div>
+
             </section>
         </div>
     </main>
@@ -131,7 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                 const id = form.find('input[name="id"]').val();
                 const tipo_usuario = $(this).val();
 
-                $.post('', { id: id, tipo_usuario: tipo_usuario }, function(response) {
+                $.post('', {
+                    id: id,
+                    tipo_usuario: tipo_usuario
+                }, function(response) {
                     const data = JSON.parse(response);
                     if (data.success) {
                         alert(data.message);
@@ -145,5 +162,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
         });
     </script>
 </body>
-</html>
 
+</html>

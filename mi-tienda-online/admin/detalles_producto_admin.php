@@ -7,6 +7,24 @@ if (!isset($_SESSION["dni"])) {
 
 include '../config/db_functions.php';
 
+
+// Incluye la función de eliminación
+include '../config/admin_db_functions.php';
+
+// Verificar si se ha enviado una solicitud de eliminación
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_producto'])) {
+    $idProducto = htmlspecialchars($_POST['idProducto']); // Obtener el idProducto del formulario
+    
+    if (eliminarProducto($idProducto)) {
+        // Redirigir a la página de productos después de eliminar
+        header("Location: index.php");
+        exit();
+    } else {
+        echo '<p>Error al eliminar el producto. Inténtalo de nuevo.</p>';
+    }
+}
+
+
 // Verificar si el idProducto está presente en la URL
 if (isset($_GET['idProducto'])) {
     $idProducto = htmlspecialchars($_GET['idProducto']);
@@ -30,7 +48,7 @@ if (isset($_GET['idProducto'])) {
                 // Insertar la nueva valoración en la base de datos
                 if (insertarValoracion($idProducto, $id_usuario, $valoracion, $descripcion)) {
                     // Redirigir después de insertar la valoración para evitar duplicados en la inserción
-                    header("Location: detalle_producto.php?idProducto=" . $idProducto);
+                    header("Location: detalles_producto_admin.php?idProducto=" . $idProducto);
                     exit();
                 } else {
                     echo '<p>Error al insertar la valoración. Inténtalo de nuevo.</p>';
@@ -80,6 +98,12 @@ if (isset($_GET['idProducto'])) {
                 <p class="producto-descripcion">Descripción del producto: <?php echo htmlspecialchars($producto['descripcion']); ?></p>
                 <p class="producto-precio">Precio: <?php echo htmlspecialchars($producto['precio']); ?> €</p>
                 <!--<button class="buy-button">Comprar Ahora</button>!-->
+
+                 <!-- Botón para eliminar el producto -->
+                 <form method="POST" action="">
+                    <input type="hidden" name="idProducto" value="<?php echo htmlspecialchars($idProducto); ?>">
+                    <button type="submit" name="eliminar_producto" class="eliminar-button">Eliminar Producto</button>
+                </form>
             </div>
         </div>
 

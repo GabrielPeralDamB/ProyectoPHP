@@ -2,17 +2,16 @@ use tienda;
 
 INSERT INTO Usuarios(nombre, apellidos, email, tipo_usuario, dni, direccion, telefono, fecha_nacimiento, password, cuenta_operativa) 
 VALUES 
-("Carlos", "García López", "carlos.garcia@correo.com", "Usuario", "12345678A", "Avenida Siempre Viva, 742", "+34 600123456", '1990-05-15', "pass123", true),
-("Marta", "Pérez González", "marta.perez@correo.com", "Administrador", "87654321B", "Calle Falsa, 123", "+34 600654321", '1985-11-23', "contraseña123", true),
-("Javier", "Fernández Ruiz", "javi.fernandez@correo.com", "Usuario", "56781234C", "Calle del Olmo, 56", "+34 601234567", '1995-08-10', "clave5678", true),
-("Lucía", "Martínez Gómez", "lucia.martinez@correo.com", "Usuario", "34567812D", "Paseo de la Castellana, 80", "+34 602345678", '1998-07-30', "secreto987", true),
-("Pablo", "Sánchez López", "pablo.sanchez@correo.com", "Administrador", "23456789E", "Plaza Mayor, 2", "+34 603456789", '1993-02-18', "admin2020", true),
-("Ana", "Gutiérrez Hernández", "ana.gutierrez@correo.com", "Usuario", "87654312F", "Calle Luna, 7", "+34 604567890", '2001-12-05', "claveana", true),
-("David", "López Martínez", "david.lopez@correo.com", "Usuario", "78901234G", "Calle Sol, 12", "+34 605678901", '1989-04-22', "password123", true),
-("Laura", "García Fernández", "laura.garcia@correo.com", "Usuario", "12340987H", "Calle Rosa, 28", "+34 606789012", '1992-03-09', "secretolaura", true),
-("Raúl", "Gómez Pérez", "raul.gomez@correo.com", "Administrador", "90876543I", "Calle Verde, 3", "+34 607890123", '1986-09-19', "rauladmin", true),
-("Sonia", "Hernández Ortiz", "sonia.hernandez@correo.com", "Usuario", "34567890J", "Calle Azul, 6", "+34 608901234", '1997-10-25', "sonia987", true);
-
+("Carlos", "García López", "carlos.garcia@correo.com", "usuario", "12345678A", "Avenida Siempre Viva, 742", "+34 600123456", '1990-05-15', "pass123", true),
+("Marta", "Pérez González", "marta.perez@correo.com", "usuario", "87654321B", "Calle Falsa, 123", "+34 600654321", '1985-11-23', "contraseña123", true),
+("Javier", "Fernández Ruiz", "javi.fernandez@correo.com", "usuario", "56781234C", "Calle del Olmo, 56", "+34 601234567", '1995-08-10', "clave5678", true),
+("Lucía", "Martínez Gómez", "lucia.martinez@correo.com", "usuario", "34567812D", "Paseo de la Castellana, 80", "+34 602345678", '1998-07-30', "secreto987", true),
+("Pablo", "Sánchez López", "pablo.sanchez@correo.com", "usuario", "23456789E", "Plaza Mayor, 2", "+34 603456789", '1993-02-18', "admin2020", true),
+("Ana", "Gutiérrez Hernández", "ana.gutierrez@correo.com", "usuario", "87654312F", "Calle Luna, 7", "+34 604567890", '2001-12-05', "claveana", true),
+("David", "López Martínez", "david.lopez@correo.com", "usuario", "78901234G", "Calle Sol, 12", "+34 605678901", '1989-04-22', "password123", true),
+("Laura", "García Fernández", "laura.garcia@correo.com", "usuario", "12340987H", "Calle Rosa, 28", "+34 606789012", '1992-03-09', "secretolaura", true),
+("Raúl", "Gómez Pérez", "raul.gomez@correo.com", "admin", "90876543I", "Calle Verde, 3", "+34 607890123", '1986-09-19', "rauladmin", true),
+("prueba", "prueba apellidos", "prueba", "admin", "prueba", "Calle Azul, 6", "+34 608901234", '1997-10-25', '$2y$10$le5hLpEnB41v4lsbwFu8Nu0oJb2XNwtNQd4vbuF1EQ8Jd259Gxq7W', true);
 
 INSERT INTO Categorias (nombre, descripcion) 
 VALUES 
