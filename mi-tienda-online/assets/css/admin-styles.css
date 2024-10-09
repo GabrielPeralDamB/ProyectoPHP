@@ -187,3 +187,33 @@ footer {
 .user{
     width: 30px;
 }
+
+.admin-pedidos {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 45%;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.admin-pedidos ul {
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.admin-pedidos h2 {
+    font-size: 24px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.admin-users ul li,
+.admin-pedidos ul li {
+    padding: 15px 10px;
+    border-bottom: 1px solid var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -151,7 +151,11 @@ body, html {
     font-size: 1.2em; /* Tamaño de texto para los detalles del producto */
     margin: 5px 0; /* Espacio entre los elementos de texto */
     color: #ddd; /* Color más claro para el texto secundario */
+    max-width: 600px; /* Máximo ancho antes de que el texto salte de línea */
+    white-space: normal; /* Permitir que el texto salte de línea */
+    word-wrap: break-word; /* Permitir que las palabras largas se dividan */
 }
+
 
 .producto-precio {
     font-size: 1.5em; /* Tamaño del precio */

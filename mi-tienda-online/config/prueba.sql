@@ -9,9 +9,10 @@ VALUES
 ("Pablo", "Sánchez López", "pablo.sanchez@correo.com", "usuario", "23456789E", "Plaza Mayor, 2", "+34 603456789", '1993-02-18', "admin2020", true),
 ("Ana", "Gutiérrez Hernández", "ana.gutierrez@correo.com", "usuario", "87654312F", "Calle Luna, 7", "+34 604567890", '2001-12-05', "claveana", true),
 ("David", "López Martínez", "david.lopez@correo.com", "usuario", "78901234G", "Calle Sol, 12", "+34 605678901", '1989-04-22', "password123", true),
-("Laura", "García Fernández", "laura.garcia@correo.com", "usuario", "12340987H", "Calle Rosa, 28", "+34 606789012", '1992-03-09', "secretolaura", true),
-("Raúl", "Gómez Pérez", "raul.gomez@correo.com", "admin", "90876543I", "Calle Verde, 3", "+34 607890123", '1986-09-19', "rauladmin", true),
-("prueba", "prueba apellidos", "prueba", "admin", "prueba", "Calle Azul, 6", "+34 608901234", '1997-10-25', '$2y$10$le5hLpEnB41v4lsbwFu8Nu0oJb2XNwtNQd4vbuF1EQ8Jd259Gxq7W', true);
+("oficina", "oficina", "oficina@oficina.com", "oficina", "oficina", "oficina", "+34 222222222", '2003-10-20', "$2y$10$le5hLpEnB41v4lsbwFu8Nu0oJb2XNwtNQd4vbuF1EQ8Jd259Gxq7W", true),
+("repartidor", "repartidor", "repartidor@repartidor.com", "repartidor", "repartidor", "repartidor", "+34 111111111", '2003-10-20', "$2y$10$le5hLpEnB41v4lsbwFu8Nu0oJb2XNwtNQd4vbuF1EQ8Jd259Gxq7W", true),
+("usuario", "usuario", "usuario@usuario.com", "usuario", "usuario", "usuario", "+34 444444444", '2003-10-20', "$2y$10$le5hLpEnB41v4lsbwFu8Nu0oJb2XNwtNQd4vbuF1EQ8Jd259Gxq7W", true),
+("admin", "admin", "admin@admin.com", "admin", "admin", "admin", "+34 000000000", '2003-10-20', '$2y$10$le5hLpEnB41v4lsbwFu8Nu0oJb2XNwtNQd4vbuF1EQ8Jd259Gxq7W', true);
 
 INSERT INTO Categorias (nombre, descripcion) 
 VALUES 

@@ -1,0 +1,128 @@
+:root {
+    --primary-color: hsl(2, 86%, 50%);
+    --secondary-color: hsl(0, 67%, 20%);
+    --background-color: hsl(0, 0%, 15%);
+    --text-color: hsl(0, 0%, 100%);
+    --accent-color: hsl(51, 100%, 50%);
+    --shadow-color: hsla(0, 0%, 0%, 0.1);
+    --button-background: hsl(2, 60%, 34%);
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 10px solid var(--primary-color);
+}
+
+.main-title {
+    font-size: 40px;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.logo img {
+    width: 100px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li img {
+    width: 30px;
+    cursor: pointer;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-entregas {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-height: 80vh;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    overflow-y: auto;
+}
+
+.admin-entregas h2 {
+    font-size: 24px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.admin-entregas ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-entregas ul li {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detalle-entrega {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detalle-entrega span {
+    display: block;
+}
+
+.acciones-entrega {
+    display: flex;
+    gap: 10px;
+}
+
+.detalle-button,
+.actualizar-button {
+    background-color: var(--button-background);
+    color: var(--text-color);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.detalle-button:hover,
+.actualizar-button:hover {
+    background-color: var(--primary-color);
+}
+
+footer {
+    background-color: var(--secondary-color);
+    text-align: center;
+    padding: 20px;
+    color: var(--text-color);
+    border-top: 2px solid var(--shadow-color);
+}

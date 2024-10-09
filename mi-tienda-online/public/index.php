@@ -10,6 +10,14 @@ if(isset($_SESSION["tipo_usuario"])){
         header("Location: ../admin/index.php");
         exit;
     }
+    if($_SESSION["tipo_usuario"]==="oficina"){
+        header("Location: ../trabajadores/oficina/index.php");
+        exit;
+    }
+    if($_SESSION["tipo_usuario"]==="repartidor"){
+        header("Location: ../trabajadores/repartidor/index.php");
+        exit;
+    }
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'addCarrito' && isset($_GET['idProducto'])) {

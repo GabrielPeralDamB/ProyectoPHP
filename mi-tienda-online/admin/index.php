@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                                         <option value="usuario" <?= $user['tipo_usuario'] === 'usuario' ? 'selected' : '' ?>>Usuario</option>
                                         <option value="repartidor" <?= $user['tipo_usuario'] === 'repartidor' ? 'selected' : '' ?>>Repartidor</option>
                                         <option value="admin" <?= $user['tipo_usuario'] === 'admin' ? 'selected' : '' ?>>Admin</option>
-                                        <option value="cliente" <?= $user['tipo_usuario'] === 'cliente' ? 'selected' : '' ?>>Cliente</option>
+                                        <option value="oficina" <?= $user['tipo_usuario'] === 'oficina' ? 'selected' : '' ?>>Oficina</option>
                                     </select>
                                     <input type="hidden" name="id" value="<?= $user['id'] ?>">
                                 </form>
@@ -127,7 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                     <form action="crear_productos.php" method="get">
                         <button type="submit" class="create-product-button">Crear producto</button>
                     </form>
-                    <button class="create-category-button">Crear categoría</button>
+                    <form action="crear_categorias.php" method="get">
+                        <button type="submit" class="create-category-button">Crear categoría</button>
+                    </form>
+                    
                 </div>
 
             </section>

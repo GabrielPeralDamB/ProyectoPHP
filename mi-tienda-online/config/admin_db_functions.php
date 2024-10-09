@@ -195,6 +195,22 @@ function createProduct($nombre, $marca, $size, $descripcion, $precio, $stock, $d
     }
 }
 
+// Función para crear una nueva categoría
+function createCategory($nombre, $descripcion) {
+    global $bd;
+
+    try {
+        // Preparar la consulta SQL para insertar la categoría
+        $stmt = $bd->prepare("INSERT INTO Categorias (nombre, descripcion) VALUES (?, ?)");
+        $stmt->execute([$nombre, $descripcion]);
+
+        return true; // Indica que la categoría fue creada exitosamente
+    } catch (PDOException $e) {
+        echo "Error al crear la categoría: " . $e->getMessage();
+        return false;
+    }
+}
+
 
 ?>
 

@@ -1,0 +1,162 @@
+:root {
+    /* Colores */
+    --primary-color: hsl(2, 86%, 50%);
+    --secondary-color: hsl(0, 67%, 20%);
+    --background-color: hsl(0, 0%, 15%);
+    --input-bg-color: hsl(0, 0%, 20%);
+    --accent-color: var(--primary-color);
+    --text-color: hsl(0, 0%, 100%);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+#logo {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body, html {
+    height: 100%;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Estilo para el encabezado */
+header {
+    background-color: var(--secondary-color);
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid var(--primary-color);
+    position: relative;
+    z-index: 10;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 28px;
+    color: var(--text-color);
+}
+
+/* Contenedor principal */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+}
+
+.create-category-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.create-category-container {
+    border: 2px solid var(--primary-color);
+    background-color: var(--secondary-color);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    display: block;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+/* Botón de crear */
+.create-button {
+    margin-top: 20px;
+    width: 50%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: hsl(2, 86%, 40%);
+}
+
+/* Estilo para el botón de volver */
+.btn-volver {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    text-decoration: none;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .create-category-container {
+        padding: 30px;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .create-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
