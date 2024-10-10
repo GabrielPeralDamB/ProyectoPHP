@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS Usuarios;
 DROP TABLE IF EXISTS Categorias;
 DROP TABLE IF EXISTS Valoraciones;
 DROP TABLE IF EXISTS Categoriasproductos;
+DROP TABLE IF EXISTS Entregas;
 
 -- Habilitar nuevamente las restricciones de claves foráneas
 SET FOREIGN_KEY_CHECKS = 1;
@@ -108,6 +109,18 @@ create table valoraciones(
     num_valoracion int not null,
     FOREIGN KEY (id_producto) REFERENCES Productos(id),
 	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id)
+);
+
+drop table if exists Entregas;
+create table Entregas(
+    id bigint not null primary key auto_increment,
+    id_usuario bigint not null,
+    id_pedido bigint not null,
+    estado varchar(255) not null,
+    fecha_entrega_estimada datetime,
+    fecha_entrega_real datetime,
+    direccion_entrega varchar(500),
+    notas_entrega TEXT
 );
 
 
