@@ -22,20 +22,15 @@ $pedidos = getAllPedidos($bd);
 ?>
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de oficina - PAMBORGHINI</title>
+    <title>Crear Entrega - PAMBORGHINI</title>
     <link rel="stylesheet" href="../../assets/css/admin-styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Cargar jQuery -->
-    <script src="../../assets/js/mostrardetallesproducto-admin.js"></script>
-    <script src="../../assets/js/imagenUser.js"></script>
 </head>
 
 <body>
@@ -43,75 +38,88 @@ $pedidos = getAllPedidos($bd);
         <div class="logo">
             <img src="../../assets/images/logo3.png" alt="PAMBORGHINI">
         </div>
-        <h1 class="main-title">Panel de oficina - PAMBORGHINI</h1>
-        <img id="user" src="../../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()" width="100px">
-
+        <h1 class="main-title">Crear Entrega</h1>
+        <img id="user" src="../../assets/images/user.png" alt="User" width="100px">
     </header>
 
     <main>
     <div class="admin-container">
-    <!-- Zona izquierda: Lista de Repartidores -->
-    <section class="admin-users">
-        <div class="header-users">
-            <h2>Repartidores</h2>
-        </div>
+        <!-- Zona izquierda: Lista de Repartidores -->
+        <section class="admin-users">
+            <div class="header-users">
+                <h2>Repartidores</h2>
+            </div>
 
-        <ul id="repartidor-list">
-            <?php if (!empty($repartidores)): ?>
-                <?php foreach ($repartidores as $repartidor): ?>
-                    <li>
-                        <span><?= htmlspecialchars($repartidor['nombre'] . " " . $repartidor['apellidos'] . " (DNI: " . $repartidor['dni'] . ")") ?></span>
-                    </li>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <li>No se encontraron repartidores</li>
-            <?php endif; ?>
-        </ul>
-    </section>
+            <ul id="repartidor-list">
+                <!-- Aquí van los repartidores -->
+                <?php if (!empty($repartidores)): ?>
+                    <?php foreach ($repartidores as $repartidor): ?>
+                        <li>
+                            <input type="radio" name="repartidor" value="<?= htmlspecialchars($repartidor['id']) ?>">
+                            <span><?= htmlspecialchars($repartidor['nombre'] . " " . $repartidor['apellidos']) ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>No se encontraron repartidores</li>
+                <?php endif; ?>
+            </ul>
+        </section>
 
-    <!-- Zona derecha: Lista de Pedidos -->
-    <section class="admin-pedidos">
-        <div class="header-pedidos">
-            <h2>Pedidos</h2>
-        </div>
+        <!-- Zona derecha: Lista de Pedidos -->
+        <section class="admin-pedidos">
+            <div class="header-pedidos">
+                <h2>Pedidos</h2>
+            </div>
 
-        <ul id="pedido-list">
-            <?php if (!empty($pedidos)): ?>
-                <?php foreach ($pedidos as $pedido): ?>
-                    <li>
-                        <span>Pedido #<?= htmlspecialchars($pedido['id']) ?> | Fecha: <?= htmlspecialchars($pedido['fecha_pedido']) ?> | Estado: <?= htmlspecialchars($pedido['estado']) ?> | Precio: <?= htmlspecialchars($pedido['precio_total']) ?> €</span>
-                    </li>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <li>No se encontraron pedidos</li>
-            <?php endif; ?>
-        </ul>
-    </section>
-</div>
-    </main>
+            <ul id="pedido-list">
+                <!-- Aquí van los pedidos -->
+                <?php if (!empty($pedidos)): ?>
+                    <?php foreach ($pedidos as $pedido): ?>
+                        <li>
+                            <input type="radio" name="pedido" value="<?= htmlspecialchars($pedido['id']) ?>">
+                            <span>Pedido #<?= htmlspecialchars($pedido['id']) ?> | Fecha: <?= htmlspecialchars($pedido['fecha_pedido']) ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>No se encontraron pedidos</li>
+                <?php endif; ?>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Botón centrado -->
+    <div class="button-container">
+        <button id="crear-entrega-btn" class="create-delivery-button">Crear Entrega</button>
+    </div>
+</main>
+
 
     <footer>
         <p>Pamborghini España © 2024. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        $(document).ready(function() {
-            $('.role-selector').change(function() {
-                const form = $(this).closest('.role-update-form');
-                const id = form.find('input[name="id"]').val();
-                const tipo_usuario = $(this).val();
+        $(document).ready(function () {
+            $('#crear-entrega-btn').click(function () {
+                const repartidor = $('input[name="repartidor"]:checked').val();
+                const pedido = $('input[name="pedido"]:checked').val();
 
-                $.post('', {
-                    id: id,
-                    tipo_usuario: tipo_usuario
-                }, function(response) {
+                if (!repartidor || !pedido) {
+                    alert('Por favor selecciona un repartidor y un pedido.');
+                    return;
+                }
+
+                $.post('crear_entrega.php', {
+                    repartidor: repartidor,
+                    pedido: pedido
+                }, function (response) {
                     const data = JSON.parse(response);
                     if (data.success) {
-                        alert(data.message);
+                        alert('Entrega creada con éxito.');
                     } else {
-                        alert(data.message);
+                        alert('Error al crear la entrega.');
                     }
-                }).fail(function() {
+                }).fail(function () {
                     alert('Error en la comunicación con el servidor.');
                 });
             });
@@ -120,3 +128,6 @@ $pedidos = getAllPedidos($bd);
 </body>
 
 </html>
+
+
+

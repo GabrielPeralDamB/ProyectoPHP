@@ -16,9 +16,14 @@ function getUsersByType($bd, $tipo_usuario) {
 
 // Función para obtener todos los pedidos
 function getAllPedidos($bd) {
-    $query = "SELECT * FROM Pedidos";
+    $query = "
+        SELECT * FROM Pedidos 
+        WHERE id NOT IN (
+            SELECT id_pedido FROM Entregas
+        )
+    ";
     $stmt = $bd->query($query);
-    $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtenemos todos los resultados como un array asociativo
+    $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $pedidos;
 }
 
