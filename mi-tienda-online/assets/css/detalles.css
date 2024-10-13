@@ -1,0 +1,84 @@
+:root {
+    --primary-color: hsl(2, 86%, 50%);
+    --secondary-color: hsl(0, 67%, 20%);
+    --background-color: hsl(0, 0%, 15%);
+    --text-color: hsl(0, 0%, 100%);
+    --shadow-color: hsla(0, 0%, 0%, 0.1);
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 10px solid var(--primary-color);
+}
+
+.main-title {
+    font-size: 36px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.btn-volver {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-volver:hover {
+    background-color: hsl(2, 86%, 40%);
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.detalles-pedido {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    width: 600px;
+}
+
+.detalles-pedido h2 {
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+}
+
+.detalles-pedido ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detalles-pedido li {
+    margin: 10px 0;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid var(--shadow-color);
+    color: var(--text-color);
+}

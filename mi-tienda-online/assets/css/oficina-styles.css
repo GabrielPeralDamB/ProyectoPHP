@@ -115,3 +115,34 @@ footer {
     color: var(--text-color);
     border-top: 2px solid var(--shadow-color);
 }
+
+#detalles-btn {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+#detalles-btn:hover {
+    background-color: hsl(51, 100%, 40%);
+    transform: scale(1.05);
+}
+
+#detalles-btn:active {
+    transform: scale(0.98);
+}
+
+/* Posicionamiento en la esquina superior derecha */
+/*header {
+    position: relative;
+}*/
+
+
+
+

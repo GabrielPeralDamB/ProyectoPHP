@@ -120,7 +120,9 @@ create table Entregas(
     fecha_entrega_estimada datetime,
     fecha_entrega_real datetime,
     direccion_entrega varchar(500),
-    notas_entrega TEXT
+    notas_entrega TEXT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id),
+    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id)
 );
 
 

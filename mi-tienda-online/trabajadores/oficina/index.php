@@ -29,8 +29,9 @@ $pedidos = getAllPedidos($bd);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Entrega - PAMBORGHINI</title>
-    <link rel="stylesheet" href="../../assets/css/admin-styles.css">
+    <link rel="stylesheet" href="../../assets/css/oficina-styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Cargar jQuery -->
+    <script src="../../assets/js/imagenUser.js"></script>
 </head>
 
 <body>
@@ -39,7 +40,8 @@ $pedidos = getAllPedidos($bd);
             <img src="../../assets/images/logo3.png" alt="PAMBORGHINI">
         </div>
         <h1 class="main-title">Crear Entrega</h1>
-        <img id="user" src="../../assets/images/user.png" alt="User" width="100px">
+        <img id="user" src="../../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()" width="100px">
+        <a href="detalles_entregas.php" id="detalles-btn" class="details-button">Detalles Entregas</a>
     </header>
 
     <main>
@@ -100,30 +102,35 @@ $pedidos = getAllPedidos($bd);
 
     <script>
         $(document).ready(function () {
-            $('#crear-entrega-btn').click(function () {
-                const repartidor = $('input[name="repartidor"]:checked').val();
-                const pedido = $('input[name="pedido"]:checked').val();
+    $('#crear-entrega-btn').click(function () {
+        const repartidor = $('input[name="repartidor"]:checked').val();
+        const pedido = $('input[name="pedido"]:checked').val();
 
-                if (!repartidor || !pedido) {
-                    alert('Por favor selecciona un repartidor y un pedido.');
-                    return;
-                }
+        if (!repartidor || !pedido) {
+            alert('Por favor selecciona un repartidor y un pedido.');
+            return;
+        }
 
-                $.post('crear_entrega.php', {
-                    repartidor: repartidor,
-                    pedido: pedido
-                }, function (response) {
-                    const data = JSON.parse(response);
-                    if (data.success) {
-                        alert('Entrega creada con éxito.');
-                    } else {
-                        alert('Error al crear la entrega.');
-                    }
-                }).fail(function () {
-                    alert('Error en la comunicación con el servidor.');
-                });
-            });
+        // Hacer la petición AJAX
+        $.post('crear_entrega.php', {
+            repartidor: repartidor,
+            pedido: pedido
+        }, function (response) {
+            const data = JSON.parse(response);
+            if (data.success) {
+                alert(data.message);
+
+                // Eliminar el pedido de la lista una vez que la entrega se haya creado
+                $('input[name="pedido"][value="' + data.pedido + '"]').closest('li').remove();
+            } else {
+                alert(data.message);
+            }
+        }).fail(function () {
+            alert('Error en la comunicación con el servidor.');
         });
+    });
+});
+
     </script>
 </body>
 
