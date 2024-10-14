@@ -234,6 +234,31 @@ footer {
     margin-left: 30px;
 }
 
+
+nav ul {
+    display: flex; /* Usar flexbox para alinear elementos */
+    align-items: center; /* Centrar verticalmente los elementos */
+    position: relative; /* Permite que los hijos se posicionen relativamente a este contenedor */
+}
+
+.iconoCarrito {
+    position: relative; /* Para el contador */
+}
+
+#contador-carro {
+    position: absolute;
+    top: -10px; /* Ajustar según sea necesario */
+    right: -10px; /* Ajustar según sea necesario */
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 14px;
+    z-index: 1; /* Asegúrate de que se muestre por encima de otros elementos */
+
+    border: 2px solid var(--accent-color-2);
+}
+
 @media (max-width: 1500px) {
     header .logo img {
         width: 150px;

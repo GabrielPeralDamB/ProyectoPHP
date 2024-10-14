@@ -78,7 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 
     <script src="../assets/js/imagenUser.js"></script>
+    
     <script src="../assets/js/imagencarrito.js"></script>
+
     <script src="../assets/js/addCarrito.js"></script>
     <script src="../assets/js/mostrardetallesproducto.js"></script>
     
@@ -93,7 +95,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <nav>
             <ul>
                 <li><img id="lupa" src="../assets/images/lupa.png" alt="Lupa"></li>
-                <li><img id="carrito" src="../assets/images/carrito.png" alt="Carrito" onclick="irCarrito()"></li>
+                <li></li><a class="iconoCarrito">
+                    <img id="carrito" src="../assets/images/carrito.png" alt="Carrito" onclick="irCarrito()">
+                    <span id="contador-carro"><?php echo isset($_SESSION['num_lineas_pedidos']) ? $_SESSION['num_lineas_pedidos'] : 0; ?></span>
+                </a></li>
+                
                 <li><img id="user" src="../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()"></li>
             </ul>
         </nav>

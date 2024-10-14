@@ -151,13 +151,24 @@ function comprobarDatos($username, $password)
             echo $usuario['nombre'] . "\t";
             echo $usuario['email'] . "\t <br>";
 
-
             if (password_verify($password, $usuario["password"])) {
 
                 $_SESSION["dni"] = $usuario["dni"];
                 $_SESSION["id"] = $usuario["id"];
                 $_SESSION["email"] = $usuario["email"];
                 $_SESSION["tipo_usuario"] = $usuario["tipo_usuario"];
+
+                // Nueva consulta para contar las líneas de pedidos
+                $countSql = "SELECT COUNT(*) as total_lineas FROM Linea_Pedidos 
+                             WHERE id_usuario = :id_usuario AND id_pedido IS NULL";
+                $countStmt = $bd->prepare($countSql);
+                $countStmt->bindParam(':id_usuario', $usuario['id']);
+                $countStmt->execute();
+                $result = $countStmt->fetch(PDO::FETCH_ASSOC);
+
+                // Almacena el número de líneas en la sesión
+                $_SESSION["num_lineas_pedidos"] = $result['total_lineas'];
+
                 $salida = true;
 
                 // Imprime las variables de sesión para verificar su creación
@@ -170,6 +181,7 @@ function comprobarDatos($username, $password)
         echo "Error: " . $ex->getMessage();
     }
 }
+
 
 
 function postUsuario($nombre, $apellidos, $email, $dni, $direccion, $telefono, $fecha_nacimiento, $password)
@@ -327,6 +339,8 @@ function addCarrito($idProducto)
                 $stmtInsert->bindParam(':precio_unitario', $precio_unitario);
                 $stmtInsert->bindParam(':precio_total', $precio_total);
                 $stmtInsert->execute();
+
+                $_SESSION["num_lineas_pedidos"]+=1;
 
                 echo "Producto añadido al carrito.";
                 exit; 

@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_linea_pedido'])) {
         if ($stmt->execute()) {
             // Redirigir de vuelta al carrito con un mensaje de éxito
             $_SESSION['message'] = "Producto eliminado del carrito correctamente.";
+            $_SESSION['num_lineas_pedidos'] -=1;
         } else {
             $_SESSION['message'] = "Error al eliminar el producto.";
         }
