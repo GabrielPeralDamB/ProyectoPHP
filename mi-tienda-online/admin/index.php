@@ -91,6 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                         <li>No se encontraron usuarios</li>
                     <?php endif; ?>
                 </ul>
+                <div class="product-footer">
+                    <form action="editar_usuarios.php" method="get">
+                        <button type="submit" class="create-product-button">Editar Usuario</button>
+                    </form>
+                    
+                </div>
             </section>
 
             <!-- Zona derecha: Resumen de Productos -->
@@ -126,6 +132,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                 <div class="product-footer">
                     <form action="crear_productos.php" method="get">
                         <button type="submit" class="create-product-button">Crear producto</button>
+                    </form>
+                    <form action="editar_productos.php" method="get">
+                        <button type="submit" class="create-product-button">Editar producto</button>
+                    </form>
+                    <form action="editar_categorias.php" method="get">
+                        <button type="submit" class="create-category-button">Editar Categoria</button>
                     </form>
                     <form action="crear_categorias.php" method="get">
                         <button type="submit" class="create-category-button">Crear categoría</button>

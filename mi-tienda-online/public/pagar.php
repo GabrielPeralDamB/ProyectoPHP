@@ -139,6 +139,10 @@ WHERE lp.id_usuario = :id_usuario AND lp.id_pedido IS NULL
 
     // Redireccionar o mostrar un mensaje de éxito
     $_SESSION['message'] = "Pedido realizado con éxito! ID de Pedido: " . $id_pedido;
+    
+
+    $_SESSION["num_lineas_pedidos"] = 0;
+
     header("Location: carrito.php");
     exit;
 

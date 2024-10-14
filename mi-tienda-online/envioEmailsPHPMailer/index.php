@@ -206,3 +206,42 @@ function enviarDatosPedido($email, $detallesPedido)
     }
 }
 
+// Función para enviar la nueva contraseña por email
+function enviarContrasenaEmail($email, $nuevaContrasena) {
+    require 'PHPMailer/Exception.php';
+    require 'PHPMailer/PHPMailer.php';
+    require 'PHPMailer/SMTP.php';
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'cuentaproyectophp@gmail.com';
+        $mail->Password = 'w i m v l c d y o u y d k u v s';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 465;
+
+        // Recipiente
+        $mail->setFrom('cuentaproyectophp@gmail.com', 'Pandaghini');
+        $mail->addAddress($email);
+
+        // Contenido
+        $mail->isHTML(true);
+        $mail->Subject = 'New Password Panborghini';
+        $mail->Body = "
+        <html>
+            <body>
+                <h2>Hola querido cliente de PANBORGHINI,</h2>
+                <p>Tu nueva password es: <strong>$nuevaContrasena</strong></p>
+                <p>Te recomendamos que guardes esta password como oro porque hay que ser adulto responsable.</p>
+                <p>Gracias por seguir confiando en nuestra empresa de venta de aguas.</p>
+            </body>
+        </html>";
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "No se pudo enviar el correo. Error: {$mail->ErrorInfo}";
+    }
+}
+

@@ -3,14 +3,13 @@ require "../config/admin_db_functions.php";
 session_start();
 if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
+    exit();
 }
 
-
-// Manejo del formulario
+// Verificar si el formulario ha sido enviado
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-
-    // Comprobar si los datos del formulario están configurados
+    // Obtener los valores del formulario
     $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
     $marca = isset($_POST['marca']) ? $_POST['marca'] : null;
     $size = isset($_POST['size']) ? $_POST['size'] : null;
@@ -18,14 +17,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $precio = isset($_POST['precio']) ? $_POST['precio'] : null;
     $stock = isset($_POST['stock']) ? $_POST['stock'] : null;
     $descuento = isset($_POST['descuento']) ? $_POST['descuento'] : null;
-    $url_imagen = isset($_POST['url_imagen']) ? $_POST['url_imagen'] : null;
     $categoriaId = isset($_POST['categoria']) ? $_POST['categoria'] : null;
 
-    // Llamar a la función para crear el producto
-    if (createProduct($nombre, $marca, $size, $descripcion, $precio, $stock, $descuento, $url_imagen, $categoriaId)) {
-        echo "Producto creado exitosamente.";
+    // Validar si se ha cargado un archivo
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        // Obtener información del archivo
+        $fileTmpPath = $_FILES['imagen']['tmp_name'];
+        $fileName = $_FILES['imagen']['name'];
+        $fileNameCmps = pathinfo($fileName);
+        $fileExtension = strtolower($fileNameCmps['extension']);
+
+        // Directorio de destino
+        $uploadFileDir = '../assets/images/';
+        $newFileName = md5(time() . $fileName) . '.' . $fileExtension; // Generar un nombre único basado en la hora
+        $destPath = $uploadFileDir . $newFileName;
+
+        // Validar la extensión de archivo permitida
+        $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'gif');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+            // Mover el archivo al directorio de destino
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                // Llamar a la función createProduct pasando el nombre del archivo
+                if (createProduct($nombre, $marca, $size, $descripcion, $precio, $stock, $descuento, $newFileName, $categoriaId)) {
+                    echo "Producto creado exitosamente.";
+                } else {
+                    echo "Error al crear el producto.";
+                }
+            } else {
+                echo "Error al mover el archivo de imagen.";
+            }
+        } else {
+            echo "Formato de archivo no permitido. Solo se permiten JPG, JPEG, PNG y GIF.";
+        }
     } else {
-        echo "Error al crear el producto.";
+        echo "Error al cargar la imagen.";
     }
 }
 
@@ -64,8 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="create-product-container">
                 <img id="logo" src="../assets/images/logo3.png">
 
-                <form action=" <?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
-
+                <!-- Se ha agregado enctype para permitir la carga de archivos -->
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST" enctype="multipart/form-data">
                     <div class="group-div-inputs">
                         <div class="input-group">
                             <label for="nombre">Nombre del Producto</label>
@@ -108,8 +133,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
 
                     <div class="input-group">
-                        <label for="url_imagen">URL de Imagen</label>
-                        <input type="text" id="url_imagen" name="url_imagen" placeholder="URL de la imagen del producto">
+                        <label for="imagen">Seleccionar Imagen</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*" required>
                     </div>
 
                     <div class="input-group">

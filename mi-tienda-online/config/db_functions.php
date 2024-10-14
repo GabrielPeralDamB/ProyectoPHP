@@ -42,45 +42,57 @@ function getProductos()
     }
 }
 
-function getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroMinPrice, $filtroMaxPrice)
+function getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroMinPrice, $filtroMaxPrice, $filtroCategoria)
 {
     include("database.php");
 
     try {
         // Crear la consulta SQL dinámica con filtros
-        $sql = "SELECT * FROM productos WHERE 1=1";
+        $sql = "SELECT productos.* FROM productos";
+
+        // Si se selecciona una categoría, hacer un join con la tabla CategoriasProductos
+        if (!empty($filtroCategoria)) {
+            $sql .= " JOIN CategoriasProductos ON productos.id = CategoriasProductos.id_producto WHERE CategoriasProductos.id_categoria = :categoria";
+        } else {
+            $sql .= " WHERE 1=1"; // Sin categoría seleccionada, obtener todos los productos
+        }
 
         // Array para almacenar los valores que se vincularán a la consulta
         $params = [];
 
         // Aplicar filtro por nombre si está definido
         if (!empty($filtroNombre)) {
-            $sql .= " AND LOWER(nombre) LIKE :nombre";
+            $sql .= " AND LOWER(productos.nombre) LIKE :nombre";
             $params[':nombre'] = '%' . strtolower($filtroNombre) . '%';
         }
 
         // Aplicar filtro por marca si está definido
         if (!empty($filtroMarca)) {
-            $sql .= " AND LOWER(marca) LIKE :marca";
+            $sql .= " AND LOWER(productos.marca) LIKE :marca";
             $params[':marca'] = '%' . strtolower($filtroMarca) . '%';
         }
 
         // Aplicar filtro por tamaño si está definido
         if (!empty($filtroSize)) {
-            $sql .= " AND LOWER(size) LIKE :size";
+            $sql .= " AND LOWER(productos.size) LIKE :size";
             $params[':size'] = '%' . strtolower($filtroSize) . '%';
         }
 
         // Aplicar filtro por precio mínimo si está definido
         if (!empty($filtroMinPrice)) {
-            $sql .= " AND precio >= :minPrice";
+            $sql .= " AND productos.precio >= :minPrice";
             $params[':minPrice'] = $filtroMinPrice;
         }
 
         // Aplicar filtro por precio máximo si está definido
         if (!empty($filtroMaxPrice)) {
-            $sql .= " AND precio <= :maxPrice";
+            $sql .= " AND productos.precio <= :maxPrice";
             $params[':maxPrice'] = $filtroMaxPrice;
+        }
+
+        // Si se ha seleccionado una categoría, añadir el parámetro de categoría
+        if (!empty($filtroCategoria)) {
+            $params[':categoria'] = $filtroCategoria;
         }
 
         // Preparar la consulta
@@ -127,6 +139,7 @@ function getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroM
         echo "Error: " . $ex->getMessage();
     }
 }
+
 
 function comprobarDatos($username, $password)
 {
@@ -357,3 +370,18 @@ function addCarrito($idProducto)
         exit; 
     }
 }
+
+function getAllCategoriasIndex() {
+    include("database.php");
+
+    try {
+        // Consulta para obtener todas las categorías
+        $stmt = $bd->prepare("SELECT id, nombre FROM Categorias");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retornar todos los resultados
+    } catch (PDOException $e) {
+        echo "Error al obtener las categorías: " . $e->getMessage();
+        return []; // Retornar un array vacío en caso de error
+    }
+}
+

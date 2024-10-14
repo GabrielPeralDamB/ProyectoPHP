@@ -80,6 +80,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="login-footer">
                     <p>¿No tienes cuenta? <a href="registro.php">Regístrate</a></p>
+                    <p>¿Olvidaste tu contraseña? <a href="password_olvidada.php">Recuperala</a></p>
                 </div>
             </div>
         </div>

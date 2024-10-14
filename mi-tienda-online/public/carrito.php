@@ -4,10 +4,10 @@
 session_start();
 if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
-} 
+}
 
-if(isset($_SESSION["tipo_usuario"])){
-    if($_SESSION["tipo_usuario"]==="admin"){
+if (isset($_SESSION["tipo_usuario"])) {
+    if ($_SESSION["tipo_usuario"] === "admin") {
         header("Location: ../admin/index.php");
         exit;
     }
@@ -78,10 +78,10 @@ foreach ($lineas_pedido as $item) {
                             <div>
                                 <form id="editar" method="POST" action="editar_item.php" style="display:inline;">
                                     <input type="hidden" name="id_linea_pedido" value="<?= htmlspecialchars($item['id']) ?>">
-                                    <input type="number" name="cantidad" value="<?= htmlspecialchars($item['cantidad']) ?>" min="1" required >
+                                    <input type="number" name="cantidad" value="<?= htmlspecialchars($item['cantidad']) ?>" min="1" required>
                                     <button type="submit" class="edit-button">Actualizar</button>
                                 </form>
-                                <form id="eliminar"method="POST" action="eliminar_item.php" style="display:inline;">
+                                <form id="eliminar" method="POST" action="eliminar_item.php" style="display:inline;">
                                     <input type="hidden" name="id_linea_pedido" value="<?= htmlspecialchars($item['id']) ?>"> <!-- Cambiado a id -->
                                     <button type="submit" class="delete-button">Eliminar</button>
                                 </form>
@@ -95,8 +95,9 @@ foreach ($lineas_pedido as $item) {
                 <h2>Resumen</h2>
                 <p>Total de productos: <span id="total-items"><?= $totalItemCount ?></span></p>
                 <p>Precio Total (Sin Envio): <?= number_format($totalCost, 2) ?>€</p>
-                <p>Costo envio: <?php include("../config/variables.php"); echo $costo_envio_permanente?>€</p>
-                <p>Precio total: <span id="total-price">€<?= number_format($totalCost+$costo_envio_permanente, 2) ?></span></p>
+                <p id="costoEnvio">Costo envio: <?php include("../config/variables.php");
+                                echo $costo_envio_permanente ?>€</p>
+                <p id="precioTotal">Precio total: <span id="total-price"><?= number_format($totalCost + $costo_envio_permanente, 2) ?></span>€</p>
 
                 <h3>Datos de Entrega</h3>
 
@@ -118,7 +119,7 @@ foreach ($lineas_pedido as $item) {
 
 
 
-                    <button type="submit" id="checkout-button">Aceptar y Pagar</button>
+                    <button type="submit" id="checkout-button" disabled>Aceptar y Pagar</button>
                 </form>
                 <br>
                 <img src="../assets/images/metodospago.png" alt="Efectivo, Tarjeta, Bizum">
@@ -126,6 +127,28 @@ foreach ($lineas_pedido as $item) {
         </div>
     </main>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Selecciona el botón y el contador de productos
+            const checkoutButton = document.getElementById("checkout-button");
+            const precioTotal = document.getElementById("precioTotal");
+            const costoEnvio = document.getElementById("costoEnvio");
+            const totalItems = parseInt(document.getElementById("total-items").innerText);
+
+            // Si no hay productos, deshabilita el botón
+            if (totalItems > 0) {
+                checkoutButton.disabled = false; // Habilitar
+                
+            } else {
+                checkoutButton.disabled = true; // Deshabilitar
+                precioTotal.innerText="Precio total: 0.00€";
+                costoEnvio.innerText="Costo envio: 0.00€";
+            }
+        });
+    </script>
+
 </body>
+
+
 
 </html>

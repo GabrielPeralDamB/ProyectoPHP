@@ -196,3 +196,9 @@ button {
 button:hover {
     background-color: hsl(2, 60%, 40%);
 }
+
+#checkout-button:disabled {
+    background-color: grey; /* Cambia el color de fondo */
+    cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+    opacity: 0.5; /* Hace el botón más translúcido */
+}

@@ -65,8 +65,8 @@ $entregas = searchEntregas($bd, $idEntrega, $idPedido, $idRepartidor, $estado);
                 <thead>
                     <tr>
                         <th>ID Entrega</th>
-                        <th>Repartidor</th>
-                        <th>Pedido</th>
+                        <th>ID Repartidor</th>
+                        <th>ID Pedido</th>
                         <th>Estado</th>
                         <th>Fecha Estimada</th>
                         <th>Fecha Real</th>

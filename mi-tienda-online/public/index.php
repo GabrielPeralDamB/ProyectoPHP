@@ -3,18 +3,18 @@
 session_start();
 if (!isset($_SESSION["dni"])) {
     header("Location: login.php");
-} 
+}
 
-if(isset($_SESSION["tipo_usuario"])){
-    if($_SESSION["tipo_usuario"]==="admin"){
+if (isset($_SESSION["tipo_usuario"])) {
+    if ($_SESSION["tipo_usuario"] === "admin") {
         header("Location: ../admin/index.php");
         exit;
     }
-    if($_SESSION["tipo_usuario"]==="oficina"){
+    if ($_SESSION["tipo_usuario"] === "oficina") {
         header("Location: ../trabajadores/oficina/index.php");
         exit;
     }
-    if($_SESSION["tipo_usuario"]==="repartidor"){
+    if ($_SESSION["tipo_usuario"] === "repartidor") {
         header("Location: ../trabajadores/repartidor/index.php");
         exit;
     }
@@ -24,7 +24,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'addCarrito' && isset($_GET['i
     include('../config/db_functions.php');
     $idProducto = intval($_GET['idProducto']); // Asegúrate de que sea un número
     addCarrito($idProducto);
-    exit; 
+    exit;
 }
 // Comprobar si la petición es POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,11 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filtroSize = isset($_POST["search-size"]) ? $_POST["search-size"] : "";
     $filtroMinPrice = isset($_POST["min-price"]) ? $_POST["min-price"] : "";
     $filtroMaxPrice = isset($_POST["max-price"]) ? $_POST["max-price"] : "";
+    $filtroCategoria = isset($_POST["categoria"]) ? $_POST["categoria"] : "";
 
     // Establecer si se aplican filtros
-    if (!empty($filtroNombre) || !empty($filtroMarca) || !empty($filtroSize) || !empty($filtroMinPrice) || !empty($filtroMaxPrice)) {
+    if (!empty($filtroNombre) || !empty($filtroMarca) || !empty($filtroSize) || !empty($filtroMinPrice) || !empty($filtroMaxPrice) || !empty($filtroCategoria)) {
         $filter = true;
     }
+
 
     // Si no hay filtros, redirigir al índice
     if ($filter == false) {
@@ -78,12 +80,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 
     <script src="../assets/js/imagenUser.js"></script>
-    
+
     <script src="../assets/js/imagencarrito.js"></script>
 
     <script src="../assets/js/addCarrito.js"></script>
     <script src="../assets/js/mostrardetallesproducto.js"></script>
-    
+
 </head>
 
 <body>
@@ -99,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <img id="carrito" src="../assets/images/carrito.png" alt="Carrito" onclick="irCarrito()">
                     <span id="contador-carro"><?php echo isset($_SESSION['num_lineas_pedidos']) ? $_SESSION['num_lineas_pedidos'] : 0; ?></span>
                 </a></li>
-                
+
                 <li><img id="user" src="../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()"></li>
             </ul>
         </nav>
@@ -111,21 +113,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="search-size" name="search-size" placeholder="Buscar por tamaño">
             <input type="decimal" id="min-price" name="min-price" placeholder="Precio mínimo">
             <input type="decimal" id="max-price" name="max-price" placeholder="Precio máximo">
+
+            <select id="categoria" name="categoria">
+                <option value="">Seleccionar Categoría</option>
+                <?php
+                require "../config/db_functions.php";
+                // Obtener todas las categorías y mostrarlas en el select
+                $categorias = getAllCategoriasIndex();
+                foreach ($categorias as $categoria) {
+                    echo "<option value=\"{$categoria['id']}\">{$categoria['nombre']}</option>";
+                }
+                ?>
+            </select>
+
             <button type="submit" id="search-button">Buscar</button>
         </form>
+
     </div>
+
 
 
     <main>
         <?php
-        include("../config/db_functions.php");
+        /*include("../config/db_functions.php");*/
         if (isset($filter)) {
             if ($filter == false) {
                 getProductos();
             } else {
-                getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroMinPrice, $filtroMaxPrice);
+                getProductosFiltrado($filtroNombre, $filtroMarca, $filtroSize, $filtroMinPrice, $filtroMaxPrice, $filtroCategoria);
             }
-
         } else {
             getProductos();
         }

@@ -40,8 +40,9 @@ $pedidos = getAllPedidos($bd);
             <img src="../../assets/images/logo3.png" alt="PAMBORGHINI">
         </div>
         <h1 class="main-title">Crear Entrega</h1>
-        <img id="user" src="../../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()" width="100px">
         <a href="detalles_entregas.php" id="detalles-btn" class="details-button">Detalles Entregas</a>
+        <img id="user" src="../../assets/images/user.png" alt="User" onclick="confirmarCerrarSesion()" width="100px">
+        
     </header>
 
     <main>
@@ -58,7 +59,7 @@ $pedidos = getAllPedidos($bd);
                     <?php foreach ($repartidores as $repartidor): ?>
                         <li>
                             <input type="radio" name="repartidor" value="<?= htmlspecialchars($repartidor['id']) ?>">
-                            <span><?= htmlspecialchars($repartidor['nombre'] . " " . $repartidor['apellidos']) ?></span>
+                            <span><?= htmlspecialchars($repartidor['id']." - ".$repartidor['nombre'] . " " . $repartidor['apellidos']) ?></span>
                         </li>
                     <?php endforeach; ?>
                 <?php else: ?>

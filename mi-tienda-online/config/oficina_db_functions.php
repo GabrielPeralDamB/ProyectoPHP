@@ -95,7 +95,7 @@ function getAllEntregas($bd) {
 function searchEntregas($bd, $idEntrega = null, $idPedido = null, $idRepartidor = null, $estado = null) {
     // Construir la consulta dinámica con filtros
     $query = "
-        SELECT e.*, u.nombre AS repartidor, p.id AS pedido
+        SELECT e.*, u.id AS repartidor, p.id AS pedido
         FROM Entregas e
         JOIN Usuarios u ON e.id_usuario = u.id
         JOIN Pedidos p ON e.id_pedido = p.id
