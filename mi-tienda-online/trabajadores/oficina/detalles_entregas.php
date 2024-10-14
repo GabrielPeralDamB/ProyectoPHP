@@ -44,16 +44,16 @@ $entregas = searchEntregas($bd, $idEntrega, $idPedido, $idRepartidor, $estado);
             <h2>Buscar Entregas</h2>
             <form method="GET" action="detalles_entregas.php">
                 <label for="idEntrega">ID Entrega:</label>
-                <input type="text" id="idEntrega" name="idEntrega" value="<?= htmlspecialchars($idEntrega) ?>">
+                <input type="text" id="idEntrega" name="idEntrega" value="<?= htmlspecialchars($idEntrega??'') ?>">
 
                 <label for="idPedido">ID Pedido:</label>
-                <input type="text" id="idPedido" name="idPedido" value="<?= htmlspecialchars($idPedido) ?>">
+                <input type="text" id="idPedido" name="idPedido" value="<?= htmlspecialchars($idPedido??'') ?>">
 
                 <label for="idRepartidor">ID Repartidor:</label>
-                <input type="text" id="idRepartidor" name="idRepartidor" value="<?= htmlspecialchars($idRepartidor) ?>">
+                <input type="text" id="idRepartidor" name="idRepartidor" value="<?= htmlspecialchars($idRepartidor??'') ?>">
 
                 <label for="estado">Estado:</label>
-                <input type="text" id="estado" name="estado" value="<?= htmlspecialchars($estado) ?>">
+                <input type="text" id="estado" name="estado" value="<?= htmlspecialchars($estado??'') ?>">
 
                 <button type="submit">Buscar</button>
             </form>
@@ -85,11 +85,11 @@ $entregas = searchEntregas($bd, $idEntrega, $idPedido, $idRepartidor, $estado);
                                         <?= htmlspecialchars($entrega['pedido']) ?>
                                     </a>
                                 </td>
-                                <td><?= htmlspecialchars($entrega['estado']) ?></td>
-                                <td><?= htmlspecialchars($entrega['fecha_entrega_estimada']) ?></td>
-                                <td><?= htmlspecialchars($entrega['fecha_entrega_real']) ?></td>
-                                <td><?= htmlspecialchars($entrega['direccion_entrega']) ?></td>
-                                <td><?= htmlspecialchars($entrega['notas_entrega']) ?></td>
+                                <td><?= htmlspecialchars($entrega['estado']??'') ?></td>
+                                <td><?= htmlspecialchars($entrega['fecha_entrega_estimada']??'') ?></td>
+                                <td><?= htmlspecialchars($entrega['fecha_entrega_real']??'') ?></td>
+                                <td><?= htmlspecialchars($entrega['direccion_entrega']??'') ?></td>
+                                <td><?= htmlspecialchars($entrega['notas_entrega']??'') ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
